@@ -4,36 +4,36 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace fixmaster
 {
-    internal class ClientClass : DBconnection
+    internal class PartClass : DBconnection
     {
-        static public DataTable dtClient = new DataTable();
-        
 
-        static public void GetClient()
+        static public DataTable dtPart = new DataTable();
+
+
+        static public void GetPart()
         {
             try
             {
-                msCommand.CommandText = "SELECT idclient AS 'Код клиента', clientname AS 'Имя', clientcontact AS 'Контактные данные', idclassclient AS 'Код класса' FROM client";
-                dtClient.Clear();
+                msCommand.CommandText = "SELECT idparts AS 'Код детали', partsname AS 'Название детали', partsdescription AS 'Описание детали', partscol AS 'Кол-во, ШТ.', partscost AS 'Цена, РУБ.' FROM parts";
+                dtPart.Clear();
                 msDataAdapter.SelectCommand = DBconnection.msCommand;
-                msDataAdapter.Fill(dtClient);
+                msDataAdapter.Fill(dtPart);
             }
 
-            catch 
+            catch
             {
                 MessageBox.Show("Ошибка при получении данных", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        static public bool addClient(string clientname, string clientcontact, string idclassclient)
+        static public bool addPart(string partsname, string partsdescription, string partscol, string partscost)
         {
             try
             {
-                msCommand.CommandText = "INSERT INTO client VALUES (null , '" + clientname + "', '" + clientcontact + "', '" +idclassclient+ "')";
+                msCommand.CommandText = "INSERT INTO parts VALUES (null , '" + partsname + "', '" + partsdescription + "', '" + partscol + "', '" + partscost + "')";
                 if (msCommand.ExecuteNonQuery() > 0)
                 {
                     return true;
@@ -50,12 +50,12 @@ namespace fixmaster
             }
         }
 
-        static public bool EditClient(string idclient, string clientcontact, string idclassclient, string clientname)
+        static public bool EditPart(string idparts, string partsname, string partsdescription, string partscol, string partscost)
         {
             try
             {
-                msCommand.CommandText = "UPDATE client SET idclient = '" + idclient + "', clientcontact = '" + clientcontact + "', clientname = '" + clientname + "', idclassclient = '" + idclassclient + "' WHERE idclient = '" + idclient + "'";
-                
+                msCommand.CommandText = "UPDATE parts SET idparts = '" + idparts + "', partsname = '" + partsname + "', partsdescription = '" + partsdescription + "', partscol = '" + partscol + "', partscost = '" + partscost + "' WHERE idparts = '" + idparts + "'";
+
 
                 if (msCommand.ExecuteNonQuery() > 0)
                 {
@@ -73,11 +73,11 @@ namespace fixmaster
             }
         }
 
-        static public void deleteClient(string idclient)
+        static public void deletePart(string idparts)
         {
             try
             {
-                msCommand.CommandText = "DELETE FROM client WHERE idclient = '" + idclient + "'";
+                msCommand.CommandText = "DELETE FROM parts WHERE idparts = '" + idparts + "'";
                 msCommand.ExecuteNonQuery();
             }
             catch
@@ -85,6 +85,5 @@ namespace fixmaster
                 MessageBox.Show("Ошибка при удалении выбранной записи", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
     }
 }

@@ -28,6 +28,12 @@ namespace fixmaster
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             ClientClass.GetClient();
             dataGridView1.DataSource = ClientClass.dtClient;
+            dataGridView2.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            ClassClientClass.GetClientClass();
+            dataGridView2.DataSource = ClassClientClass.dtClientClass;
+            dataGridView3.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            PartClass.GetPart();
+            dataGridView3.DataSource = PartClass.dtPart;
             DataIntoComboxClientClass();
         }
 
@@ -53,7 +59,7 @@ namespace fixmaster
                 Object result = DBconnection.msCommand.ExecuteScalar();
                 if (result != null)
                 {
-                    MessageBox.Show("Такой товар уже есть в базе!", "Дубликат записи", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Такой клиент уже есть в базе!", "Дубликат записи", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     textBoxClientname.Text = "";
                     textBoxClientcontact.Text = "";
                 }
@@ -100,77 +106,165 @@ namespace fixmaster
             }
         }
         static public string EditId, EditName, EditContact, EditClass;
+        static public string EditIdP, EditNameP, EditDesP, EditColP, EditCostP;
 
-        private void buttonSave_Click(object sender, EventArgs e)
+        private void label8_Click(object sender, EventArgs e)
         {
-            if (textBoxClientname.Text == EditName && textBoxClientcontact.Text == EditContact && comboBoxClassclient.Text == EditClass)
-            {
-                if (textBoxClientname.Text != "" && textBoxClientcontact.Text != "" && comboBoxClassclient.Text != "" )
-                {
-                    EditId = textBoxIdclient.Text;
-                    EditName = textBoxClientname.Text;
-                    EditContact = textBoxClientcontact.Text;
-                    EditClass = comboBoxClassclient.Text;
-                    if (ClientClass.EditClient(textBoxIdclient.Text, textBoxClientcontact.Text, comboBoxClassclient.Text, textBoxClientname.Text))
-                    {
-                        MessageBox.Show("Данные Клиента успешно изменены", "Данные изменены", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        ClientClass.GetClient();
-                        textBoxClientname.Text = "";
-                        textBoxClientcontact.Text = "";
-                        comboBoxClassclient.Text = "";
-                        textBoxIdclient.Text = "";
-                    }
-                    else
-                    {
-                        MessageBox.Show("Ошибка при редактировании записи", "Ошибка редактирования", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
 
+        }
+
+        private void label9_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox5_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonSavePart_Click(object sender, EventArgs e)
+        {
+            if (textBoxPartname.Text != "" && textBoxPartdes.Text != "" && textBoxPartcol.Text != "" && textBoxPartcost.Text != "")
+            {
+                EditIdP = textBoxIdpart.Text;
+                EditNameP = textBoxPartname.Text;
+                EditDesP = textBoxPartdes.Text;
+                EditColP = textBoxPartcol.Text;
+                EditCostP = textBoxPartcost.Text;
+
+                if (PartClass.EditPart(textBoxIdpart.Text, textBoxPartname.Text, textBoxPartdes.Text, textBoxPartcol.Text, textBoxPartcost.Text))
+                {
+                    MessageBox.Show("Данные успешно изменены", "Данные изменены", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    PartClass.GetPart();
                 }
                 else
                 {
-                    MessageBox.Show("Заполните все поля", "Поля не заполнены", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Ошибка при редактировании записи", "Ошибка редактирования", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                textBoxPartname.Text = "";
+                textBoxPartdes.Text = "";
+                textBoxPartcol.Text = "";
+                textBoxPartcost.Text = "";
+                textBoxIdpart.Text = "";
+            }
+            else
+            {
+                MessageBox.Show("Заполните все поля", "Поля не заполнены", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void buttonDeletePart_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string delete = dataGridView3.CurrentRow.Cells[0].Value.ToString();
+                DialogResult del = MessageBox.Show("Вы действительно хотите удалить деталь?", "Подтвердите удаление", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (del == DialogResult.Yes)
+                {
+                    PartClass.deletePart(delete);
+                    PartClass.GetPart();
+                    dataGridView3.DataSource = PartClass.dtPart;
+                    MessageBox.Show("Успешное удаление", "Удаление завершено", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Ошибка при удалении", "Не удалось удалить запись", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonAddPart_Click(object sender, EventArgs e)
+        {
+            if (textBoxPartname.Text != "" && textBoxPartdes.Text != "" && textBoxPartcol.Text != "" && textBoxPartcost.Text != "")
+            {
+                string sql = @"SELECT idparts FROM parts WHERE partsname = '" + textBoxPartname + "' and partsdescription = '" + textBoxPartdes + "'";
+                DBconnection.msCommand.CommandText = sql;
+                Object result = DBconnection.msCommand.ExecuteScalar();
+                if (result != null)
+                {
+                    MessageBox.Show("Такой товар уже есть в базе!", "Дубликат записи", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    textBoxClientname.Text = "";
+                    textBoxClientcontact.Text = "";
+                }
+                else
+                {
+                    if (PartClass.addPart(textBoxPartname.Text, textBoxPartdes.Text, textBoxPartcol.Text, textBoxPartcost.Text))
+                    {
+                        MessageBox.Show("Деталь успешно добавлена в базу.", "Деталь внесена", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        PartClass.GetPart();
+                        textBoxPartcost.Text = "";
+                        textBoxPartname.Text = "";
+                        textBoxPartdes.Text = "";
+                        textBoxPartcol.Text = "";
+                        textBoxIdpart.Text = "";
+                    }
+                    else
+                    {
+                        MessageBox.Show("Деталь не была внесена!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
             else
             {
+                MessageBox.Show("Заполните обязательные полня!", "Полня не заполнены", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void buttonIzmPart_Click(object sender, EventArgs e)
+        {
+            EditIdP = dataGridView3.CurrentRow.Cells[0].Value.ToString();
+            EditNameP = dataGridView3.CurrentRow.Cells[1].Value.ToString();
+            EditDesP = dataGridView3.CurrentRow.Cells[2].Value.ToString();
+            EditColP = dataGridView3.CurrentRow.Cells[3].Value.ToString();
+            EditCostP = dataGridView3.CurrentRow.Cells[4].Value.ToString();
+
+
+            textBoxIdpart.Text = EditIdP;
+            textBoxPartname.Text = EditNameP;
+            textBoxPartdes.Text = EditDesP;
+            textBoxPartcol.Text = EditColP;
+            textBoxPartcost.Text = EditCostP;
+        }
+
+        private void buttonSave_Click(object sender, EventArgs e)
+        {
+            if (textBoxClientname.Text != "" && textBoxClientcontact.Text != "" && comboBoxClassclient.Text != "")
+            {
+                EditId = textBoxIdclient.Text;
+                EditName = textBoxClientname.Text;
+                EditContact = textBoxClientcontact.Text;
+                EditClass = comboBoxClassclient.Text;
+
                 if (ClientClass.EditClient(textBoxIdclient.Text, textBoxClientcontact.Text, comboBoxClassclient.Text, textBoxClientname.Text))
                 {
-                    MessageBox.Show("Данные товара успешно изменены", "Данные изменены", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Данные успешно изменены", "Данные изменены", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     ClientClass.GetClient();
-                    textBoxClientname.Text = "";
-                    textBoxClientcontact.Text = "";
-                    comboBoxClassclient.Text = "";
-                    textBoxIdclient.Text = "";
-
                 }
                 else
                 {
-                    if (textBoxClientname.Text != "" && textBoxClientcontact.Text != "" && comboBoxClassclient.Text != "")
-                    {
-                        EditId = textBoxIdclient.Text;
-                        EditName = textBoxClientname.Text;
-                        EditContact = textBoxClientcontact.Text;
-                        EditClass = comboBoxClassclient.Text;
-                        if (ClientClass.EditClient(textBoxIdclient.Text, textBoxClientcontact.Text, comboBoxClassclient.Text, textBoxClientname.Text))
-                        {
-                            MessageBox.Show("Данные Клиента успешно изменены", "Данные изменены", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            ClientClass.GetClient();
-                            textBoxClientname.Text = "";
-                            textBoxClientcontact.Text = "";
-                            comboBoxClassclient.Text = "";
-                            textBoxIdclient.Text = "";
-                        }
-                        else
-                        {
-                            MessageBox.Show("Ошибка при редактировании записи", "Ошибка редактирования", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-
-                    }
-                    else
-                    {
-                        MessageBox.Show("Заполните все поля", "Поля не заполнены", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
+                    MessageBox.Show("Ошибка при редактировании записи", "Ошибка редактирования", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+
+                textBoxClientname.Text = "";
+                textBoxClientcontact.Text = "";
+                comboBoxClassclient.Text = "";
+                textBoxIdclient.Text = "";
+            }
+            else
+            {
+                MessageBox.Show("Заполните все поля", "Поля не заполнены", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
