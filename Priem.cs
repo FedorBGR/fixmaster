@@ -34,6 +34,9 @@ namespace fixmaster
             dataGridView3.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             PartClass.GetPart();
             dataGridView3.DataSource = PartClass.dtPart;
+            dataGridView4.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            ProductClass.GetProduct();
+            dataGridView4.DataSource = ProductClass.dtProduct;
             DataIntoComboxClientClass();
         }
 
@@ -107,6 +110,7 @@ namespace fixmaster
         }
         static public string EditId, EditName, EditContact, EditClass;
         static public string EditIdP, EditNameP, EditDesP, EditColP, EditCostP;
+        static public string EditIdPr, EditNamePr, EditDesPr;
 
         private void label8_Click(object sender, EventArgs e)
         {
@@ -155,6 +159,67 @@ namespace fixmaster
             }
         }
 
+        private void buttonIzmProduct_Click(object sender, EventArgs e)
+        {
+            EditIdPr = dataGridView4.CurrentRow.Cells[0].Value.ToString();
+            EditNamePr = dataGridView4.CurrentRow.Cells[1].Value.ToString();
+            EditDesPr = dataGridView4.CurrentRow.Cells[2].Value.ToString();
+
+
+            textBoxIdProduct.Text = EditIdPr;
+            textBoxProductname.Text = EditNamePr;
+            textBoxProductDes.Text = EditDesPr;
+
+        }
+
+        private void buttonSaveProduct_Click(object sender, EventArgs e)
+        {
+            if (textBoxProductname.Text != "" && textBoxProductDes.Text != "")
+            {
+                EditIdPr = textBoxIdProduct.Text;
+                EditNamePr = textBoxProductname.Text;
+                EditDesPr = textBoxProductDes.Text;
+
+                if (ProductClass.EditProduct(textBoxIdProduct.Text, textBoxProductname.Text, textBoxProductDes.Text))
+                {
+                    MessageBox.Show("Данные успешно изменены", "Данные изменены", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    ProductClass.GetProduct();
+                }
+                else
+                {
+                    MessageBox.Show("Ошибка при редактировании записи", "Ошибка редактирования", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                textBoxIdProduct.Text = "";
+                textBoxProductname.Text = "";
+                textBoxProductDes.Text = "";
+            }
+            else
+            {
+                MessageBox.Show("Заполните все поля", "Поля не заполнены", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void buttonDeleteProduct_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string delete = dataGridView4.CurrentRow.Cells[0].Value.ToString();
+                DialogResult del = MessageBox.Show("Вы действительно хотите удалить этот продукт?", "Подтвердите удаление", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (del == DialogResult.Yes)
+                {
+                    ProductClass.deleteProduct(delete);
+                    ProductClass.GetProduct();
+                    dataGridView4.DataSource = ProductClass.dtProduct;
+                    MessageBox.Show("Успешное удаление", "Удаление завершено", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Ошибка при удалении", "Не удалось удалить запись", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void buttonDeletePart_Click(object sender, EventArgs e)
         {
             try
@@ -172,6 +237,31 @@ namespace fixmaster
             catch
             {
                 MessageBox.Show("Ошибка при удалении", "Не удалось удалить запись", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void buttonAddProduct_Click(object sender, EventArgs e)
+        {
+            if (textBoxProductname.Text != "" && textBoxProductDes.Text != "")
+            {
+                
+                    if (ProductClass.addProduct(textBoxProductname.Text, textBoxProductDes.Text))
+                    {
+                        MessageBox.Show("Товар успешно добавлен в базу.", "Товар внесен внесен", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        ProductClass.GetProduct();
+                        textBoxIdProduct.Text = "";
+                    textBoxProductname.Text = "";
+                    textBoxProductDes.Text = "";
+                    }
+                    else
+                    {
+                        MessageBox.Show("Товар не был добавлен!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                
+            }
+            else
+            {
+                MessageBox.Show("Заполните обязательные полня!", "Полня не заполнены", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 

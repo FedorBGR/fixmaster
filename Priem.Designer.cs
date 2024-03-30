@@ -60,18 +60,33 @@
             this.textBoxPartname = new System.Windows.Forms.TextBox();
             this.textBoxIdpart = new System.Windows.Forms.TextBox();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.buttonSaveProduct = new System.Windows.Forms.Button();
+            this.buttonIzmProduct = new System.Windows.Forms.Button();
+            this.buttonDeleteProduct = new System.Windows.Forms.Button();
+            this.buttonAddProduct = new System.Windows.Forms.Button();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.textBoxProductDes = new System.Windows.Forms.TextBox();
+            this.textBoxProductname = new System.Windows.Forms.TextBox();
+            this.textBoxIdProduct = new System.Windows.Forms.TextBox();
+            this.dataGridView4 = new System.Windows.Forms.DataGridView();
             this.tabControl4.SuspendLayout();
             this.ClientPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.PartsPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
+            this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl4
             // 
             this.tabControl4.Controls.Add(this.ClientPage);
             this.tabControl4.Controls.Add(this.PartsPage);
+            this.tabControl4.Controls.Add(this.tabPage3);
             this.tabControl4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl4.Location = new System.Drawing.Point(0, 0);
             this.tabControl4.Name = "tabControl4";
@@ -423,6 +438,137 @@
             this.dataGridView3.Size = new System.Drawing.Size(900, 400);
             this.dataGridView3.TabIndex = 1;
             // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.buttonSaveProduct);
+            this.tabPage3.Controls.Add(this.buttonIzmProduct);
+            this.tabPage3.Controls.Add(this.buttonDeleteProduct);
+            this.tabPage3.Controls.Add(this.buttonAddProduct);
+            this.tabPage3.Controls.Add(this.label11);
+            this.tabPage3.Controls.Add(this.label12);
+            this.tabPage3.Controls.Add(this.label13);
+            this.tabPage3.Controls.Add(this.textBoxProductDes);
+            this.tabPage3.Controls.Add(this.textBoxProductname);
+            this.tabPage3.Controls.Add(this.textBoxIdProduct);
+            this.tabPage3.Controls.Add(this.dataGridView4);
+            this.tabPage3.Location = new System.Drawing.Point(4, 24);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(1896, 1013);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Техника";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // buttonSaveProduct
+            // 
+            this.buttonSaveProduct.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.buttonSaveProduct.Location = new System.Drawing.Point(976, 714);
+            this.buttonSaveProduct.Name = "buttonSaveProduct";
+            this.buttonSaveProduct.Size = new System.Drawing.Size(153, 34);
+            this.buttonSaveProduct.TabIndex = 24;
+            this.buttonSaveProduct.Text = "Сохранить";
+            this.buttonSaveProduct.UseVisualStyleBackColor = true;
+            this.buttonSaveProduct.Click += new System.EventHandler(this.buttonSaveProduct_Click);
+            // 
+            // buttonIzmProduct
+            // 
+            this.buttonIzmProduct.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.buttonIzmProduct.Location = new System.Drawing.Point(976, 645);
+            this.buttonIzmProduct.Name = "buttonIzmProduct";
+            this.buttonIzmProduct.Size = new System.Drawing.Size(153, 34);
+            this.buttonIzmProduct.TabIndex = 23;
+            this.buttonIzmProduct.Text = "Изменить";
+            this.buttonIzmProduct.UseVisualStyleBackColor = true;
+            this.buttonIzmProduct.Click += new System.EventHandler(this.buttonIzmProduct_Click);
+            // 
+            // buttonDeleteProduct
+            // 
+            this.buttonDeleteProduct.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.buttonDeleteProduct.Location = new System.Drawing.Point(976, 586);
+            this.buttonDeleteProduct.Name = "buttonDeleteProduct";
+            this.buttonDeleteProduct.Size = new System.Drawing.Size(153, 34);
+            this.buttonDeleteProduct.TabIndex = 22;
+            this.buttonDeleteProduct.Text = "Удалить";
+            this.buttonDeleteProduct.UseVisualStyleBackColor = true;
+            this.buttonDeleteProduct.Click += new System.EventHandler(this.buttonDeleteProduct_Click);
+            // 
+            // buttonAddProduct
+            // 
+            this.buttonAddProduct.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.buttonAddProduct.Location = new System.Drawing.Point(976, 527);
+            this.buttonAddProduct.Name = "buttonAddProduct";
+            this.buttonAddProduct.Size = new System.Drawing.Size(153, 34);
+            this.buttonAddProduct.TabIndex = 21;
+            this.buttonAddProduct.Text = "Добавить";
+            this.buttonAddProduct.UseVisualStyleBackColor = true;
+            this.buttonAddProduct.Click += new System.EventHandler(this.buttonAddProduct_Click);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label11.Location = new System.Drawing.Point(422, 670);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(148, 21);
+            this.label11.TabIndex = 19;
+            this.label11.Text = "Описание поломки";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label12.Location = new System.Drawing.Point(435, 609);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(140, 21);
+            this.label12.TabIndex = 18;
+            this.label12.Text = "Название изделия";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label13.Location = new System.Drawing.Point(476, 546);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(99, 21);
+            this.label13.TabIndex = 17;
+            this.label13.Text = "Код изделия";
+            // 
+            // textBoxProductDes
+            // 
+            this.textBoxProductDes.Location = new System.Drawing.Point(581, 668);
+            this.textBoxProductDes.Name = "textBoxProductDes";
+            this.textBoxProductDes.Size = new System.Drawing.Size(160, 23);
+            this.textBoxProductDes.TabIndex = 15;
+            // 
+            // textBoxProductname
+            // 
+            this.textBoxProductname.Location = new System.Drawing.Point(581, 607);
+            this.textBoxProductname.Name = "textBoxProductname";
+            this.textBoxProductname.Size = new System.Drawing.Size(160, 23);
+            this.textBoxProductname.TabIndex = 14;
+            // 
+            // textBoxIdProduct
+            // 
+            this.textBoxIdProduct.Location = new System.Drawing.Point(581, 544);
+            this.textBoxIdProduct.Name = "textBoxIdProduct";
+            this.textBoxIdProduct.Size = new System.Drawing.Size(160, 23);
+            this.textBoxIdProduct.TabIndex = 13;
+            // 
+            // dataGridView4
+            // 
+            this.dataGridView4.AllowUserToAddRows = false;
+            this.dataGridView4.AllowUserToDeleteRows = false;
+            this.dataGridView4.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.dataGridView4.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dataGridView4.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView4.Location = new System.Drawing.Point(399, 33);
+            this.dataGridView4.Name = "dataGridView4";
+            this.dataGridView4.ReadOnly = true;
+            this.dataGridView4.RowTemplate.Height = 25;
+            this.dataGridView4.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView4.Size = new System.Drawing.Size(900, 400);
+            this.dataGridView4.TabIndex = 2;
+            // 
             // Priem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -440,6 +586,9 @@
             this.PartsPage.ResumeLayout(false);
             this.PartsPage.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -481,5 +630,17 @@
         private Label label9;
         private TextBox textBoxPartcost;
         private TextBox textBoxPartcol;
+        private TabPage tabPage3;
+        private DataGridView dataGridView4;
+        private Button buttonSaveProduct;
+        private Button buttonIzmProduct;
+        private Button buttonDeleteProduct;
+        private Button buttonAddProduct;
+        private Label label11;
+        private Label label12;
+        private Label label13;
+        private TextBox textBoxProductDes;
+        private TextBox textBoxProductname;
+        private TextBox textBoxIdProduct;
     }
 }
