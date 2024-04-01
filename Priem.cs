@@ -1,4 +1,5 @@
 ﻿using Google.Protobuf.Reflection;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -25,19 +26,107 @@ namespace fixmaster
 
         private void Priem_Load(object sender, EventArgs e)
         {
+            textBox_cena_zakaza.Enabled = false;
+            buttonAddvzakaz.Enabled = false;
+            button_save.Enabled = false;
+            textBox_id_zakaz.Enabled = false;
+            DataIntocomboBoxIdproduct();
+            DataIntoComboxPrj();
+            DataIntoComboxIdTovar();
+            DataIntoComboxj();
+            DataIntoComboxIdclient();
+            textBoxj.Visible = false;
+            comboBoxj.Visible = false;
+            comboBoxPrj.Visible = false;
+            string surname = Autorization.Famil(textBox_fam.Text);
+            textBox_fam.Text = surname;
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             ClientClass.GetClient();
             dataGridView1.DataSource = ClientClass.dtClient;
+            dataGridView6.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView6.DataSource = ClientClass.dtClient;
             dataGridView2.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             ClassClientClass.GetClientClass();
             dataGridView2.DataSource = ClassClientClass.dtClientClass;
             dataGridView3.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             PartClass.GetPart();
             dataGridView3.DataSource = PartClass.dtPart;
+            dataGridView8.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView8.DataSource = PartClass.dtPart;
             dataGridView4.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             ProductClass.GetProduct();
             dataGridView4.DataSource = ProductClass.dtProduct;
+            dataGridView7.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView7.DataSource = ProductClass.dtProduct;
+            dataGridView5.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            OrderClass.GetZakaz();
+            dataGridView5.DataSource = OrderClass.dtZakaz;
             DataIntoComboxClientClass();
+        }
+
+        private void DataIntoComboxIdTovar()
+        {
+            string sql = @"SELECT idparts FROM parts";
+            DBconnection.msCommand.CommandText = sql;
+            using (var reader = DBconnection.msCommand.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    comboBox_id_tovar.Items.Add(reader["idparts"].ToString());
+                }
+            }
+        }
+
+        private void DataIntoComboxj()
+        {
+            string sql = @"SELECT idparts FROM parts";
+            DBconnection.msCommand.CommandText = sql;
+            using (var reader = DBconnection.msCommand.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    comboBoxj.Items.Add(reader["idparts"].ToString());
+                }
+            }
+        }
+
+        private void DataIntocomboBoxIdproduct()
+        {
+            string sql = @"SELECT idproduct FROM product";
+            DBconnection.msCommand.CommandText = sql;
+            using (var reader = DBconnection.msCommand.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    comboBoxIdproduct.Items.Add(reader["idproduct"].ToString());
+                }
+            }
+        }
+
+        private void DataIntoComboxPrj()
+        {
+            string sql = @"SELECT idproduct FROM product";
+            DBconnection.msCommand.CommandText = sql;
+            using (var reader = DBconnection.msCommand.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    comboBoxPrj.Items.Add(reader["idproduct"].ToString());
+                }
+            }
+        }
+
+        private void DataIntoComboxIdclient()
+        {
+            string sql = @"SELECT idclient FROM client";
+            DBconnection.msCommand.CommandText = sql;
+            using (var reader = DBconnection.msCommand.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    comboBoxIdclient.Items.Add(reader["idclient"].ToString());
+                }
+            }
         }
 
         private void DataIntoComboxClientClass()
@@ -111,6 +200,7 @@ namespace fixmaster
         static public string EditId, EditName, EditContact, EditClass;
         static public string EditIdP, EditNameP, EditDesP, EditColP, EditCostP;
         static public string EditIdPr, EditNamePr, EditDesPr;
+        static public string EditIdOr, EditIdclient, EditIdProduct, EditOrderDate, EditOrderStatus, EditIdExecutor, EditIdParts, EditRepairCost, EditOrderCol;
 
         private void label8_Click(object sender, EventArgs e)
         {
@@ -172,6 +262,154 @@ namespace fixmaster
 
         }
 
+        private void button_izm_Click(object sender, EventArgs e)
+        {
+            EditIdOr = dataGridView5.CurrentRow.Cells[0].Value.ToString();
+            EditIdclient = dataGridView5.CurrentRow.Cells[1].Value.ToString();
+            EditIdProduct = dataGridView5.CurrentRow.Cells[2].Value.ToString();
+            EditOrderDate = dataGridView5.CurrentRow.Cells[3].Value.ToString();
+            EditOrderStatus = dataGridView5.CurrentRow.Cells[4].Value.ToString();
+            EditIdExecutor = dataGridView5.CurrentRow.Cells[5].Value.ToString();
+            EditIdParts = dataGridView5.CurrentRow.Cells[6].Value.ToString();
+            EditRepairCost = dataGridView5.CurrentRow.Cells[7].Value.ToString();
+            EditOrderCol = dataGridView5.CurrentRow.Cells[8].Value.ToString();
+
+            textBox_id_zakaz.Text = EditIdOr;
+            comboBox_id_tovar.Text = EditIdParts;
+            comboBoxIdclient.Text = EditIdclient;
+            comboBox_satus.Text = EditOrderStatus;
+            textBox_fam.Text = EditIdExecutor;
+            comboBoxIdproduct.Text = EditIdProduct;
+            textBox_cena_zakaza.Text = EditRepairCost;
+            textBox_zakaz_col.Text = EditOrderCol;
+            comboBoxIdclient.Enabled = false;
+            textBox_fam.Enabled = false;
+            textBox_zakaz_col.Enabled = false;
+            comboBoxIdproduct.Enabled = false;
+            button_save.Enabled = true;
+        }
+
+        private void button_save_Click(object sender, EventArgs e)
+        {
+            if (textBox_id_zakaz.Text != "" && comboBox_id_tovar.Text != "" && comboBoxIdclient.Text != "" && comboBoxIdproduct.Text != "" && textBox_cena_zakaza.Text != "" && textBox_zakaz_col.Text != "" && textBox_fam.Text != "" && comboBox_satus.Text != "")
+            {
+                EditIdOr = textBox_id_zakaz.Text ;
+                 EditIdParts = comboBox_id_tovar.Text;
+                 EditIdclient = comboBoxIdclient.Text;
+                EditOrderStatus = comboBox_satus.Text;
+                EditIdExecutor = textBox_fam.Text;
+                EditIdProduct =comboBoxIdproduct.Text ;
+                EditRepairCost = textBox_cena_zakaza.Text;
+                EditOrderCol = textBox_zakaz_col.Text ;
+
+                if (textBox_id_zakaz.Text == EditIdOr && comboBox_id_tovar.Text == EditIdParts && comboBoxIdclient.Text == EditIdclient && comboBox_satus.Text == EditOrderStatus && textBox_fam.Text == EditIdExecutor && comboBoxIdproduct.Text == EditIdProduct && textBox_cena_zakaza.Text == EditRepairCost && textBox_zakaz_col.Text == EditOrderCol)
+                {
+                    if (OrderClass.EditZakaz(int.Parse(textBox_id_zakaz.Text), int.Parse(comboBoxIdclient.Text), comboBoxIdproduct.Text, comboBox_satus.Text, textBox_fam.Text, comboBox_id_tovar.Text))
+                    {
+                        MessageBox.Show("Данные заказа успешно изменены", "Данные изменены", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        OrderClass.GetZakaz();
+                        PartClass.GetPart();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Ошибка при редактировании записи", "Ошибка редактирования", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Данные заказа успешно изменены", "Данные изменены", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    OrderClass.GetZakaz();
+                    PartClass.GetPart();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Заполните все поля", "Поля не заполнены", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
+            comboBoxIdclient.Enabled = true;
+            textBox_fam.Enabled = true;
+            textBox_zakaz_col.Enabled = true;
+            comboBoxIdproduct.Enabled = true;
+            textBox_id_zakaz.Text = "";
+            comboBox_id_tovar.Text = "";
+            comboBoxIdclient.Text = "";
+            comboBox_satus.Text = "";
+            textBox_fam.Text = "";
+            comboBoxIdproduct.Text = "";
+            textBox_cena_zakaza.Text = "";
+            textBox_zakaz_col.Text = "";
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            comboBox_satus.Enabled = false;
+            EditIdOr = dataGridView5.CurrentRow.Cells[0].Value.ToString();
+            EditIdParts = dataGridView5.CurrentRow.Cells[6].Value.ToString();
+            EditRepairCost = dataGridView5.CurrentRow.Cells[7].Value.ToString();
+            EditOrderCol = dataGridView5.CurrentRow.Cells[8].Value.ToString();
+            EditIdProduct = dataGridView5.CurrentRow.Cells[2].Value.ToString();
+
+            textBox_id_zakaz.Text = EditIdOr;
+            buttonAddvzakaz.Enabled = true;
+            textBoxj.Visible = true;
+            comboBoxj.Visible = true;
+            comboBoxPrj.Visible = true;
+            textBox_zakaz_col.Text = "";
+            comboBoxIdclient.Enabled = false;
+            textBox_fam.Enabled = false;
+        }
+
+        private void button_deletezakaz_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string delete = dataGridView5.CurrentRow.Cells[0].Value.ToString();
+                DialogResult del = MessageBox.Show("Вы действительно хотите удалить этот заказ?", "Подтвердите удаление", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (del == DialogResult.Yes)
+                {
+                    string a = $"SELECT idparts, ordercol FROM fixdb.order WHERE idorder = '{delete}'";
+                    DBconnection.msCommand.CommandText = a;
+
+                    // Получаем результаты запроса
+                    DataTable tempTable = new DataTable();
+                    using (MySqlDataAdapter adapter = new MySqlDataAdapter(DBconnection.msCommand))
+                    {
+                        adapter.Fill(tempTable);
+                    }
+
+                    // Перебираем результаты и обновляем данные в таблице "tovar"
+                    foreach (DataRow row in tempTable.Rows)
+                    {
+                        string[] idArray = row["idparts"].ToString().Split(';');
+                        string[] colArray = row["ordercol"].ToString().Split(';');
+                        
+
+                        for (int i = 0; i < idArray.Length; i++)
+                        {
+                            int idxz = Convert.ToInt32(idArray[i]);
+                            int coli = Convert.ToInt32(colArray[i]);
+
+                            DBconnection.msCommand.CommandText = $"UPDATE parts SET partscol = partscol + {coli} WHERE idparts = {idxz}";
+                            DBconnection.msCommand.ExecuteNonQuery();
+                        }
+                    }
+
+                    // Удаляем заказ после восстановления количества товаров
+                    OrderClass.deleteZakaz(delete);
+                    OrderClass.GetZakaz();
+                    PartClass.GetPart();
+                    dataGridView5.DataSource = OrderClass.dtZakaz;
+                    MessageBox.Show("Заказ удален", "Удаление завершено", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при удалении: {ex.Message}", "Не удалось удалить запись", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void buttonSaveProduct_Click(object sender, EventArgs e)
         {
             if (textBoxProductname.Text != "" && textBoxProductDes.Text != "")
@@ -218,6 +456,272 @@ namespace fixmaster
             {
                 MessageBox.Show("Ошибка при удалении", "Не удалось удалить запись", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void dataGridView6_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void label15_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label19_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            string idt1 = Convert.ToString(comboBoxj.Text);
+            comboBox_id_tovar.Text = idt1;
+            int zkc1 = Convert.ToInt32(textBoxj.Text);
+            textBox_zakaz_col.Text = zkc1.ToString();
+            string prd1 = Convert.ToString(comboBoxPrj.Text);
+            comboBoxIdproduct.Text = prd1;
+            string col_do = @"SELECT partscol FROM fixdb.parts WHERE idparts = '" + comboBox_id_tovar.Text + "'";
+            DBconnection.msCommand.CommandText = col_do;
+            Object resultcoldo = DBconnection.msCommand.ExecuteScalar();
+            string a = @"SELECT idparts FROM fixdb.order WHERE idorder = '" + textBox_id_zakaz.Text + "'";
+            DBconnection.msCommand.CommandText = a;
+            Object result1 = DBconnection.msCommand.ExecuteScalar();
+            string b = @"SELECT repaircost FROM fixdb.order WHERE idorder = '" + textBox_id_zakaz.Text + "'";
+            DBconnection.msCommand.CommandText = b;
+            Object result2 = DBconnection.msCommand.ExecuteScalar();
+            string c = @"SELECT ordercol FROM fixdb.order WHERE idorder = '" + textBox_id_zakaz.Text + "'";
+            DBconnection.msCommand.CommandText = c;
+            Object result3 = DBconnection.msCommand.ExecuteScalar();
+            string v = @"SELECT partscost FROM fixdb.parts WHERE idparts = '" + comboBox_id_tovar.Text + "'";
+            DBconnection.msCommand.CommandText = v;
+            Object result = DBconnection.msCommand.ExecuteScalar();
+            string p = @"SELECT idproduct FROM fixdb.order WHERE idorder - '" + textBox_id_zakaz.Text + "'";
+            DBconnection.msCommand.CommandText = p;
+            Object result4 = DBconnection.msCommand.ExecuteScalar();
+
+            if (result != null && result1 != null && result2 != null && result3 != null && result4 != null)
+            {
+                int j = Convert.ToInt32(textBoxj.Text);
+                int price = Convert.ToInt32(result);
+                int x = price;
+                int y = Convert.ToInt32(textBoxj.Text);
+                int z = x * y;
+                textBox_cena_zakaza.Text = z.ToString();
+
+                string colvo = result3.ToString();
+                string colvo_posle = colvo + ";" + textBoxj.Text;
+                textBox_zakaz_col.Text = colvo_posle.ToString();
+
+                int price2 = Convert.ToInt32(result2);
+                int price_posle = price2 + z;
+                textBox_cena_zakaza.Text = price_posle.ToString();
+
+                string id_tov = result1.ToString();
+                comboBox_id_tovar.Text = id_tov + ";" + comboBoxj.Text;
+
+                string id_pr = result4.ToString();
+                comboBoxIdproduct.Text = id_pr + ";" + comboBoxPrj.Text;
+            }
+
+            if (textBox_id_zakaz.Text == EditIdOr)
+            {
+
+
+                if (textBox_id_zakaz.Text != "" && comboBox_id_tovar.Text != "" && textBox_cena_zakaza.Text != "" && textBox_zakaz_col.Text != "")
+                {
+                    EditIdOr = textBox_id_zakaz.Text;
+                    int j = Convert.ToInt32(textBoxj.Text);
+                    if (Convert.ToInt32(resultcoldo) > j)
+                    {
+
+                        if (OrderClass.addTovartoZakaz(int.Parse(textBox_id_zakaz.Text), comboBoxIdproduct.Text, comboBox_id_tovar.Text, int.Parse(textBox_cena_zakaza.Text), textBox_zakaz_col.Text))
+                        {
+                            int col_col = Convert.ToInt32(resultcoldo) - j;
+                            string Obnovtov = @"UPDATE parts SET partscol = '" + col_col + "' WHERE idparts = '" + comboBoxj.Text + "'";
+                            DBconnection.msCommand.CommandText = Obnovtov;
+                            Object resultobnov = DBconnection.msCommand.ExecuteScalar();
+                            MessageBox.Show("Добавление в заказ успешно.", "Готово", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            OrderClass.GetZakaz();
+                            PartClass.GetPart();
+                            ClientClass.GetClient();
+
+
+
+                            textBox_cena_zakaza.Text = "";
+                            comboBox_id_tovar.Text = "";
+                            comboBoxIdclient.Text = "";
+                            textBox_zakaz_col.Text = "";
+                            comboBox_satus.Text = "";
+                        }
+                        else
+                        {
+                            MessageBox.Show("Товара на складе недостаточно", "Товара недостаточно", MessageBoxButtons.OK, MessageBoxIcon.Warning); MessageBox.Show("Ошибка при добавлении в заказ", "Ошибка добавления", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+
+
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Товара на складе недостаточно", "Товара недостаточно", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Заполните все поля", "Поля не заполнены", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            else
+            {
+                if (OrderClass.addTovartoZakaz(int.Parse(textBox_id_zakaz.Text), comboBoxIdproduct.Text, comboBox_id_tovar.Text, int.Parse(textBox_cena_zakaza.Text), textBox_zakaz_col.Text))
+                {
+                    int j = Convert.ToInt32(textBoxj.Text);
+                    if (Convert.ToInt32(resultcoldo) > j)
+                    {
+
+                        if (OrderClass.addTovartoZakaz(int.Parse(textBox_id_zakaz.Text), comboBoxIdproduct.Text, comboBox_id_tovar.Text, int.Parse(textBox_cena_zakaza.Text), textBox_zakaz_col.Text))
+                        {
+                            int col_col = Convert.ToInt32(resultcoldo) - j;
+                            string Obnovtov = @"UPDATE parts SET partscol = '" + col_col + "' WHERE idparts = '" + comboBoxj.Text + "'";
+                            DBconnection.msCommand.CommandText = Obnovtov;
+                            Object resultobnov = DBconnection.msCommand.ExecuteScalar();
+                            MessageBox.Show("Добавление в заказ успешно.", "Готово", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            OrderClass.GetZakaz();
+                            PartClass.GetPart();
+
+
+                            textBox_cena_zakaza.Text = "";
+                            comboBox_id_tovar.Text = "";
+                            comboBoxIdclient.Text = "";
+                            textBox_zakaz_col.Text = "";
+                            comboBox_satus.Text = "";
+                        }
+                        else
+                        {
+                            MessageBox.Show("Товара на складе недостаточно", "Товара недостаточно", MessageBoxButtons.OK, MessageBoxIcon.Warning); MessageBox.Show("Ошибка при добавлении в заказ", "Ошибка добавления", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+                else
+                {
+
+
+                    if (textBox_id_zakaz.Text != "" && comboBox_id_tovar.Text != "" && textBox_cena_zakaza.Text != "" && textBox_zakaz_col.Text != "")
+                    {
+                        EditIdOr = textBox_id_zakaz.Text;
+                        int j = Convert.ToInt32(textBoxj.Text);
+                        if (Convert.ToInt32(resultcoldo) > j)
+                        {
+
+                            if (OrderClass.addTovartoZakaz(int.Parse(textBox_id_zakaz.Text), comboBoxIdproduct.Text, comboBox_id_tovar.Text, int.Parse(textBox_cena_zakaza.Text), textBox_zakaz_col.Text))
+                            {
+                                int col_col = Convert.ToInt32(resultcoldo) - j;
+                                string Obnovtov = @"UPDATE parts SET partscol = '" + col_col + "' WHERE idparts = '" + comboBoxj.Text + "'";
+                                DBconnection.msCommand.CommandText = Obnovtov;
+                                Object resultobnov = DBconnection.msCommand.ExecuteScalar();
+                                MessageBox.Show("Добавление в заказ успешно.", "Готово", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                OrderClass.GetZakaz();
+                                PartClass.GetPart();
+
+
+                                textBox_cena_zakaza.Text = "";
+                                comboBox_id_tovar.Text = "";
+                                comboBoxIdclient.Text = "";
+                                textBox_zakaz_col.Text = "";
+                                comboBox_satus.Text = "";
+                            }
+                            else
+                            {
+                                MessageBox.Show("Товара на складе недостаточно", "Товара недостаточно", MessageBoxButtons.OK, MessageBoxIcon.Warning); MessageBox.Show("Ошибка при добавлении в заказ", "Ошибка добавления", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+
+
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("Товара на складе недостаточно", "Товара недостаточно", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Заполните все поля", "Поля не заполнены", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+            }
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            textBoxj.Visible = false;
+            comboBoxj.Visible = false;
+            buttonAddvzakaz.Enabled = false;
+            buttonAddvzakaz.Enabled = false;
+            comboBox_satus.Enabled = true;
+        }
+
+        private void button_addZakaz_Click(object sender, EventArgs e)
+        {
+            string col_do = @"SELECT partscol FROM parts WHERE idparts = '" + comboBox_id_tovar.Text + "'";
+            DBconnection.msCommand.CommandText = col_do;
+            Object resultcoldo = DBconnection.msCommand.ExecuteScalar();
+            string v = @"SELECT partscost FROM parts WHERE idparts = '" + comboBox_id_tovar.Text + "'";
+            DBconnection.msCommand.CommandText = v;
+            Object result = DBconnection.msCommand.ExecuteScalar();
+            if (result != null)
+            {
+                int price = Convert.ToInt32(result);
+                int x = price;
+                int y = Convert.ToInt32(textBox_zakaz_col.Text);
+                int z = x * y;
+                textBox_cena_zakaza.Text = z.ToString();
+            }
+            if (comboBox_id_tovar.Text != "" && comboBoxIdclient.Text != "" && comboBoxIdproduct.Text != ""  && textBox_zakaz_col.Text != "" && textBox_fam.Text != "" && comboBox_satus.Text != "")
+            {
+                int y = Convert.ToInt32(textBox_zakaz_col.Text);
+
+                if (Convert.ToInt32(resultcoldo) >= y)
+                {
+
+                    if (OrderClass.addZakaz(Convert.ToInt32(comboBoxIdclient.Text), comboBoxIdproduct.Text, comboBox_satus.Text, Convert.ToInt32(textBox_fam.Text), comboBox_id_tovar.Text, Convert.ToInt32(textBox_cena_zakaza.Text), textBox_zakaz_col.Text))
+                    {
+                        int col_col = Convert.ToInt32(resultcoldo) - y;
+                        string Obnovtov = @"UPDATE parts SET partscol = '" + col_col + "' WHERE idparts = '" + comboBox_id_tovar.Text + "'";
+                        DBconnection.msCommand.CommandText = Obnovtov;
+                        Object resultobnov = DBconnection.msCommand.ExecuteScalar();
+                        MessageBox.Show("Заказ успешно добавлен в базу.", "Заказ внесен", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        OrderClass.GetZakaz();
+                        PartClass.GetPart();
+
+
+                        textBox_cena_zakaza.Text = "";
+                        comboBox_id_tovar.Text = "";
+                        comboBoxIdproduct.Text = "";
+                        comboBoxIdclient.Text = "";
+                        textBox_zakaz_col.Text = "";
+                        comboBox_satus.Text = "";
+                    }
+                    else
+                    {
+                        MessageBox.Show("Заказ не был добавлен!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
+
+
+                }
+                else
+                {
+                    MessageBox.Show("Деталей на складе недостаточно", "Деталей не хватает", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+
+            }
+            else
+            {
+                MessageBox.Show("Заполните обязательные полня!", "Полня не заполнены", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void comboBoxIdclient_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
 
         private void buttonDeletePart_Click(object sender, EventArgs e)

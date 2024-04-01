@@ -72,6 +72,36 @@
             this.textBoxProductname = new System.Windows.Forms.TextBox();
             this.textBoxIdProduct = new System.Windows.Forms.TextBox();
             this.dataGridView4 = new System.Windows.Forms.DataGridView();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.button_vzakaz = new System.Windows.Forms.Button();
+            this.button_addZakaz = new System.Windows.Forms.Button();
+            this.textBox_fam = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.comboBox_satus = new System.Windows.Forms.ComboBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.textBoxj = new System.Windows.Forms.TextBox();
+            this.comboBoxPrj = new System.Windows.Forms.ComboBox();
+            this.comboBoxIdproduct = new System.Windows.Forms.ComboBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.comboBoxIdclient = new System.Windows.Forms.ComboBox();
+            this.comboBoxj = new System.Windows.Forms.ComboBox();
+            this.comboBox_id_tovar = new System.Windows.Forms.ComboBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.textBox_cena_zakaza = new System.Windows.Forms.TextBox();
+            this.textBox_zakaz_col = new System.Windows.Forms.TextBox();
+            this.button_save = new System.Windows.Forms.Button();
+            this.button_izm = new System.Windows.Forms.Button();
+            this.button_deletezakaz = new System.Windows.Forms.Button();
+            this.buttonAddvzakaz = new System.Windows.Forms.Button();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.textBox_id_zakaz = new System.Windows.Forms.TextBox();
+            this.dataGridView8 = new System.Windows.Forms.DataGridView();
+            this.dataGridView7 = new System.Windows.Forms.DataGridView();
+            this.dataGridView6 = new System.Windows.Forms.DataGridView();
+            this.dataGridView5 = new System.Windows.Forms.DataGridView();
             this.tabControl4.SuspendLayout();
             this.ClientPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
@@ -80,6 +110,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).BeginInit();
+            this.tabPage4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView5)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl4
@@ -87,6 +122,7 @@
             this.tabControl4.Controls.Add(this.ClientPage);
             this.tabControl4.Controls.Add(this.PartsPage);
             this.tabControl4.Controls.Add(this.tabPage3);
+            this.tabControl4.Controls.Add(this.tabPage4);
             this.tabControl4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl4.Location = new System.Drawing.Point(0, 0);
             this.tabControl4.Name = "tabControl4";
@@ -569,6 +605,342 @@
             this.dataGridView4.Size = new System.Drawing.Size(900, 400);
             this.dataGridView4.TabIndex = 2;
             // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.button_vzakaz);
+            this.tabPage4.Controls.Add(this.button_addZakaz);
+            this.tabPage4.Controls.Add(this.textBox_fam);
+            this.tabPage4.Controls.Add(this.label20);
+            this.tabPage4.Controls.Add(this.comboBox_satus);
+            this.tabPage4.Controls.Add(this.label19);
+            this.tabPage4.Controls.Add(this.textBoxj);
+            this.tabPage4.Controls.Add(this.comboBoxPrj);
+            this.tabPage4.Controls.Add(this.comboBoxIdproduct);
+            this.tabPage4.Controls.Add(this.label18);
+            this.tabPage4.Controls.Add(this.comboBoxIdclient);
+            this.tabPage4.Controls.Add(this.comboBoxj);
+            this.tabPage4.Controls.Add(this.comboBox_id_tovar);
+            this.tabPage4.Controls.Add(this.label10);
+            this.tabPage4.Controls.Add(this.label14);
+            this.tabPage4.Controls.Add(this.textBox_cena_zakaza);
+            this.tabPage4.Controls.Add(this.textBox_zakaz_col);
+            this.tabPage4.Controls.Add(this.button_save);
+            this.tabPage4.Controls.Add(this.button_izm);
+            this.tabPage4.Controls.Add(this.button_deletezakaz);
+            this.tabPage4.Controls.Add(this.buttonAddvzakaz);
+            this.tabPage4.Controls.Add(this.label15);
+            this.tabPage4.Controls.Add(this.label16);
+            this.tabPage4.Controls.Add(this.label17);
+            this.tabPage4.Controls.Add(this.textBox_id_zakaz);
+            this.tabPage4.Controls.Add(this.dataGridView8);
+            this.tabPage4.Controls.Add(this.dataGridView7);
+            this.tabPage4.Controls.Add(this.dataGridView6);
+            this.tabPage4.Controls.Add(this.dataGridView5);
+            this.tabPage4.Location = new System.Drawing.Point(4, 24);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(1896, 1013);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Заказы";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // button_vzakaz
+            // 
+            this.button_vzakaz.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.button_vzakaz.Location = new System.Drawing.Point(1003, 838);
+            this.button_vzakaz.Name = "button_vzakaz";
+            this.button_vzakaz.Size = new System.Drawing.Size(153, 34);
+            this.button_vzakaz.TabIndex = 55;
+            this.button_vzakaz.Text = "Внести в заказ";
+            this.button_vzakaz.UseVisualStyleBackColor = true;
+            this.button_vzakaz.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // button_addZakaz
+            // 
+            this.button_addZakaz.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.button_addZakaz.Location = new System.Drawing.Point(1003, 562);
+            this.button_addZakaz.Name = "button_addZakaz";
+            this.button_addZakaz.Size = new System.Drawing.Size(153, 34);
+            this.button_addZakaz.TabIndex = 54;
+            this.button_addZakaz.Text = "Добавить заказ";
+            this.button_addZakaz.UseVisualStyleBackColor = true;
+            this.button_addZakaz.Click += new System.EventHandler(this.button_addZakaz_Click);
+            // 
+            // textBox_fam
+            // 
+            this.textBox_fam.Location = new System.Drawing.Point(608, 871);
+            this.textBox_fam.Name = "textBox_fam";
+            this.textBox_fam.Size = new System.Drawing.Size(160, 23);
+            this.textBox_fam.TabIndex = 53;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label20.Location = new System.Drawing.Point(470, 869);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(132, 21);
+            this.label20.TabIndex = 52;
+            this.label20.Text = "Код исполнителя";
+            // 
+            // comboBox_satus
+            // 
+            this.comboBox_satus.FormattingEnabled = true;
+            this.comboBox_satus.Items.AddRange(new object[] {
+            "Принят",
+            "В работе",
+            "Завершен"});
+            this.comboBox_satus.Location = new System.Drawing.Point(608, 826);
+            this.comboBox_satus.Name = "comboBox_satus";
+            this.comboBox_satus.Size = new System.Drawing.Size(160, 23);
+            this.comboBox_satus.TabIndex = 51;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label19.Location = new System.Drawing.Point(495, 828);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(107, 21);
+            this.label19.TabIndex = 50;
+            this.label19.Text = "Статус заказа";
+            this.label19.Click += new System.EventHandler(this.label19_Click);
+            // 
+            // textBoxj
+            // 
+            this.textBoxj.Location = new System.Drawing.Point(608, 703);
+            this.textBoxj.Name = "textBoxj";
+            this.textBoxj.Size = new System.Drawing.Size(160, 23);
+            this.textBoxj.TabIndex = 49;
+            // 
+            // comboBoxPrj
+            // 
+            this.comboBoxPrj.FormattingEnabled = true;
+            this.comboBoxPrj.Location = new System.Drawing.Point(608, 786);
+            this.comboBoxPrj.Name = "comboBoxPrj";
+            this.comboBoxPrj.Size = new System.Drawing.Size(160, 23);
+            this.comboBoxPrj.TabIndex = 48;
+            // 
+            // comboBoxIdproduct
+            // 
+            this.comboBoxIdproduct.FormattingEnabled = true;
+            this.comboBoxIdproduct.Location = new System.Drawing.Point(608, 786);
+            this.comboBoxIdproduct.Name = "comboBoxIdproduct";
+            this.comboBoxIdproduct.Size = new System.Drawing.Size(160, 23);
+            this.comboBoxIdproduct.TabIndex = 47;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label18.Location = new System.Drawing.Point(503, 784);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(99, 21);
+            this.label18.TabIndex = 46;
+            this.label18.Text = "Код изделия";
+            // 
+            // comboBoxIdclient
+            // 
+            this.comboBoxIdclient.FormattingEnabled = true;
+            this.comboBoxIdclient.Location = new System.Drawing.Point(608, 661);
+            this.comboBoxIdclient.Name = "comboBoxIdclient";
+            this.comboBoxIdclient.Size = new System.Drawing.Size(160, 23);
+            this.comboBoxIdclient.TabIndex = 45;
+            this.comboBoxIdclient.SelectedIndexChanged += new System.EventHandler(this.comboBoxIdclient_SelectedIndexChanged);
+            // 
+            // comboBoxj
+            // 
+            this.comboBoxj.FormattingEnabled = true;
+            this.comboBoxj.Location = new System.Drawing.Point(608, 619);
+            this.comboBoxj.Name = "comboBoxj";
+            this.comboBoxj.Size = new System.Drawing.Size(160, 23);
+            this.comboBoxj.TabIndex = 44;
+            // 
+            // comboBox_id_tovar
+            // 
+            this.comboBox_id_tovar.FormattingEnabled = true;
+            this.comboBox_id_tovar.Location = new System.Drawing.Point(608, 619);
+            this.comboBox_id_tovar.Name = "comboBox_id_tovar";
+            this.comboBox_id_tovar.Size = new System.Drawing.Size(160, 23);
+            this.comboBox_id_tovar.TabIndex = 43;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label10.Location = new System.Drawing.Point(471, 748);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(121, 21);
+            this.label10.TabIndex = 42;
+            this.label10.Text = "Стоимость, РУБ";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label14.Location = new System.Drawing.Point(422, 701);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(180, 21);
+            this.label14.TabIndex = 41;
+            this.label14.Text = "Количесво деталей, ШТ.";
+            // 
+            // textBox_cena_zakaza
+            // 
+            this.textBox_cena_zakaza.Location = new System.Drawing.Point(608, 750);
+            this.textBox_cena_zakaza.Name = "textBox_cena_zakaza";
+            this.textBox_cena_zakaza.Size = new System.Drawing.Size(160, 23);
+            this.textBox_cena_zakaza.TabIndex = 40;
+            // 
+            // textBox_zakaz_col
+            // 
+            this.textBox_zakaz_col.Location = new System.Drawing.Point(608, 703);
+            this.textBox_zakaz_col.Name = "textBox_zakaz_col";
+            this.textBox_zakaz_col.Size = new System.Drawing.Size(160, 23);
+            this.textBox_zakaz_col.TabIndex = 39;
+            // 
+            // button_save
+            // 
+            this.button_save.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.button_save.Location = new System.Drawing.Point(1003, 758);
+            this.button_save.Name = "button_save";
+            this.button_save.Size = new System.Drawing.Size(153, 34);
+            this.button_save.TabIndex = 38;
+            this.button_save.Text = "Сохранить";
+            this.button_save.UseVisualStyleBackColor = true;
+            this.button_save.Click += new System.EventHandler(this.button_save_Click);
+            // 
+            // button_izm
+            // 
+            this.button_izm.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.button_izm.Location = new System.Drawing.Point(1003, 718);
+            this.button_izm.Name = "button_izm";
+            this.button_izm.Size = new System.Drawing.Size(153, 34);
+            this.button_izm.TabIndex = 37;
+            this.button_izm.Text = "Изменить";
+            this.button_izm.UseVisualStyleBackColor = true;
+            this.button_izm.Click += new System.EventHandler(this.button_izm_Click);
+            // 
+            // button_deletezakaz
+            // 
+            this.button_deletezakaz.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.button_deletezakaz.Location = new System.Drawing.Point(1003, 678);
+            this.button_deletezakaz.Name = "button_deletezakaz";
+            this.button_deletezakaz.Size = new System.Drawing.Size(153, 34);
+            this.button_deletezakaz.TabIndex = 36;
+            this.button_deletezakaz.Text = "Удалить";
+            this.button_deletezakaz.UseVisualStyleBackColor = true;
+            this.button_deletezakaz.Click += new System.EventHandler(this.button_deletezakaz_Click);
+            // 
+            // buttonAddvzakaz
+            // 
+            this.buttonAddvzakaz.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.buttonAddvzakaz.Location = new System.Drawing.Point(1003, 798);
+            this.buttonAddvzakaz.Name = "buttonAddvzakaz";
+            this.buttonAddvzakaz.Size = new System.Drawing.Size(153, 34);
+            this.buttonAddvzakaz.TabIndex = 35;
+            this.buttonAddvzakaz.Text = "Добавить";
+            this.buttonAddvzakaz.UseVisualStyleBackColor = true;
+            this.buttonAddvzakaz.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label15.Location = new System.Drawing.Point(492, 659);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(98, 21);
+            this.label15.TabIndex = 34;
+            this.label15.Text = "Код клиента";
+            this.label15.Click += new System.EventHandler(this.label15_Click);
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label16.Location = new System.Drawing.Point(503, 617);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(90, 21);
+            this.label16.TabIndex = 33;
+            this.label16.Text = "Код детали";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label17.Location = new System.Drawing.Point(503, 575);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(87, 21);
+            this.label17.TabIndex = 32;
+            this.label17.Text = "Код заказа";
+            // 
+            // textBox_id_zakaz
+            // 
+            this.textBox_id_zakaz.Location = new System.Drawing.Point(608, 573);
+            this.textBox_id_zakaz.Name = "textBox_id_zakaz";
+            this.textBox_id_zakaz.Size = new System.Drawing.Size(160, 23);
+            this.textBox_id_zakaz.TabIndex = 29;
+            // 
+            // dataGridView8
+            // 
+            this.dataGridView8.AllowUserToAddRows = false;
+            this.dataGridView8.AllowUserToDeleteRows = false;
+            this.dataGridView8.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.dataGridView8.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dataGridView8.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView8.Location = new System.Drawing.Point(1059, 18);
+            this.dataGridView8.Name = "dataGridView8";
+            this.dataGridView8.ReadOnly = true;
+            this.dataGridView8.RowTemplate.Height = 25;
+            this.dataGridView8.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView8.Size = new System.Drawing.Size(445, 192);
+            this.dataGridView8.TabIndex = 6;
+            // 
+            // dataGridView7
+            // 
+            this.dataGridView7.AllowUserToAddRows = false;
+            this.dataGridView7.AllowUserToDeleteRows = false;
+            this.dataGridView7.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.dataGridView7.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dataGridView7.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView7.Location = new System.Drawing.Point(608, 18);
+            this.dataGridView7.Name = "dataGridView7";
+            this.dataGridView7.ReadOnly = true;
+            this.dataGridView7.RowTemplate.Height = 25;
+            this.dataGridView7.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView7.Size = new System.Drawing.Size(445, 192);
+            this.dataGridView7.TabIndex = 5;
+            // 
+            // dataGridView6
+            // 
+            this.dataGridView6.AllowUserToAddRows = false;
+            this.dataGridView6.AllowUserToDeleteRows = false;
+            this.dataGridView6.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.dataGridView6.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dataGridView6.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView6.Location = new System.Drawing.Point(157, 18);
+            this.dataGridView6.Name = "dataGridView6";
+            this.dataGridView6.ReadOnly = true;
+            this.dataGridView6.RowTemplate.Height = 25;
+            this.dataGridView6.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView6.Size = new System.Drawing.Size(445, 192);
+            this.dataGridView6.TabIndex = 4;
+            this.dataGridView6.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView6_CellContentClick);
+            // 
+            // dataGridView5
+            // 
+            this.dataGridView5.AllowUserToAddRows = false;
+            this.dataGridView5.AllowUserToDeleteRows = false;
+            this.dataGridView5.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.dataGridView5.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dataGridView5.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView5.Location = new System.Drawing.Point(399, 241);
+            this.dataGridView5.Name = "dataGridView5";
+            this.dataGridView5.ReadOnly = true;
+            this.dataGridView5.RowTemplate.Height = 25;
+            this.dataGridView5.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView5.Size = new System.Drawing.Size(900, 192);
+            this.dataGridView5.TabIndex = 3;
+            // 
             // Priem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -589,6 +961,12 @@
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).EndInit();
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView5)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -642,5 +1020,35 @@
         private TextBox textBoxProductDes;
         private TextBox textBoxProductname;
         private TextBox textBoxIdProduct;
+        private TabPage tabPage4;
+        private DataGridView dataGridView6;
+        private DataGridView dataGridView5;
+        private DataGridView dataGridView8;
+        private DataGridView dataGridView7;
+        private ComboBox comboBoxj;
+        private ComboBox comboBox_id_tovar;
+        private Label label10;
+        private Label label14;
+        private TextBox textBox_cena_zakaza;
+        private TextBox textBox_zakaz_col;
+        private Button button_save;
+        private Button button_izm;
+        private Button button_deletezakaz;
+        private Button buttonAddvzakaz;
+        private Label label15;
+        private Label label16;
+        private Label label17;
+        private TextBox textBox_id_zakaz;
+        private ComboBox comboBoxIdclient;
+        private Label label19;
+        private TextBox textBoxj;
+        private ComboBox comboBoxPrj;
+        private ComboBox comboBoxIdproduct;
+        private Label label18;
+        private TextBox textBox_fam;
+        private Label label20;
+        private ComboBox comboBox_satus;
+        private Button button_vzakaz;
+        private Button button_addZakaz;
     }
 }

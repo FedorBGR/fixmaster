@@ -39,7 +39,7 @@ namespace fixmaster
         {
             try
             {
-                DBconnection.msCommand.CommandText = @"SELECT executorname FROM fixdb.executor WHERE login = '" + User + "'";
+                DBconnection.msCommand.CommandText = @"SELECT idexecutor FROM fixdb.executor WHERE login = '" + User + "'";
                 Object result = DBconnection.msCommand.ExecuteScalar();
                 Name = result.ToString();
                 return Name;
