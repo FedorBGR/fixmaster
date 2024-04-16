@@ -49,8 +49,6 @@ namespace fixmaster
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             ClientClass.GetClient();
             dataGridView1.DataSource = ClientClass.dtClient;
-            dataGridView6.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridView6.DataSource = ClientClass.dtClient;
             dataGridView2.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             ClassClientClass.GetClientClass();
             dataGridView2.DataSource = ClassClientClass.dtClientClass;
@@ -62,8 +60,7 @@ namespace fixmaster
             dataGridView4.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             ProductClass.GetProduct();
             dataGridView4.DataSource = ProductClass.dtProduct;
-            dataGridView7.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridView7.DataSource = ProductClass.dtProduct;
+
             dataGridView5.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             OrderClass.GetZakaz();
             dataGridView5.DataSource = OrderClass.dtZakaz;
@@ -237,7 +234,7 @@ namespace fixmaster
         static public string EditId, EditName, EditContact, EditClass;
         static public string EditIdP, EditNameP, EditDesP, EditColP, EditCostP;
         static public string EditIdPr, EditNamePr, EditDesPr;
-        static public string EditIdOr, EditIdclient, EditIdProduct, EditOrderDate, EditOrderStatus, EditIdExecutor, EditIdParts, EditRepairCost, EditOrderCol, EditClientName, EditProductName, EditProductDes;
+        static public string EditClCon, EditIdOr, EditIdclient, EditIdProduct, EditOrderDate, EditOrderStatus, EditIdExecutor, EditIdParts, EditRepairCost, EditOrderCol, EditClientName, EditProductName, EditProductDes;
 
         private void label8_Click(object sender, EventArgs e)
         {
@@ -302,35 +299,41 @@ namespace fixmaster
         private void button_izm_Click(object sender, EventArgs e)
         {
             EditIdOr = dataGridView5.CurrentRow.Cells[0].Value.ToString();
-            EditIdclient = dataGridView5.CurrentRow.Cells[1].Value.ToString();
-            EditIdProduct = dataGridView5.CurrentRow.Cells[2].Value.ToString();
-            EditOrderDate = dataGridView5.CurrentRow.Cells[3].Value.ToString();
-            EditOrderStatus = dataGridView5.CurrentRow.Cells[4].Value.ToString();
-            EditIdExecutor = dataGridView5.CurrentRow.Cells[5].Value.ToString();
-            EditIdParts = dataGridView5.CurrentRow.Cells[6].Value.ToString();
-            EditRepairCost = dataGridView5.CurrentRow.Cells[7].Value.ToString();
+            EditIdclient = dataGridView5.CurrentRow.Cells[4].Value.ToString();
+            EditIdProduct = dataGridView5.CurrentRow.Cells[1].Value.ToString();
+            EditOrderDate = dataGridView5.CurrentRow.Cells[10].Value.ToString();
+            EditOrderStatus = dataGridView5.CurrentRow.Cells[11].Value.ToString();
+            EditIdExecutor = dataGridView5.CurrentRow.Cells[9].Value.ToString();
+            EditIdParts = dataGridView5.CurrentRow.Cells[7].Value.ToString();
+            EditRepairCost = dataGridView5.CurrentRow.Cells[12].Value.ToString();
             EditOrderCol = dataGridView5.CurrentRow.Cells[8].Value.ToString();
-            EditClientName = dataGridView5.CurrentRow.Cells[9].Value.ToString();
-            EditProductName = dataGridView5.CurrentRow.Cells[10].Value.ToString();
-            EditProductDes = dataGridView5.CurrentRow.Cells[11].Value.ToString();
+            EditClientName = dataGridView5.CurrentRow.Cells[5].Value.ToString();
+            EditProductName = dataGridView5.CurrentRow.Cells[2].Value.ToString();
+            EditProductDes = dataGridView5.CurrentRow.Cells[3].Value.ToString();
+            EditClCon = dataGridView5.CurrentRow.Cells[6].Value.ToString() ;
 
-            textBoxCln.Text = EditClientName;
-            textBoxPrn.Text = EditProductName;
+            comboBoxIdclient.Text = EditClientName;
+            comboBoxIdproduct.Text = EditProductName;
             textBoxPrd.Text = EditProductDes;
             textBox_id_zakaz.Text = EditIdOr;
             comboBox_id_tovar.Text = EditIdParts;
-            comboBoxIdclient.Text = EditIdclient;
+            textBoxCln.Text = EditIdclient;
             comboBox_satus.Text = EditOrderStatus;
-            textBox_fam.Text = EditIdExecutor;
-            comboBoxIdproduct.Text = EditIdProduct;
+            comboBoxExecutor.Text = EditIdExecutor;
+            textBoxPrn.Text = EditIdProduct;
             textBox_cena_zakaza.Text = EditRepairCost;
             textBox_zakaz_col.Text = EditOrderCol;
+            comboBoxClcon.Text = EditClCon;
             comboBoxIdclient.Enabled = false;
             textBox_fam.Enabled = false;
             textBox_zakaz_col.Enabled = false;
             comboBoxIdproduct.Enabled = false;
             button_save.Enabled = true;
+            comboBoxExecutor.Enabled=false;
+            comboBox_id_tovar.Enabled = false;
+            comboBoxj.Enabled = false;
         }
+
 
         private void buttonSearchOrder_Click(object sender, EventArgs e)
         {
@@ -426,13 +429,13 @@ namespace fixmaster
         private void buttonCheck_Click(object sender, EventArgs e)
         {
             string OrderNumber = dataGridView5.CurrentRow.Cells[0].Value.ToString().Trim();
-            string IdClient = dataGridView5.CurrentRow.Cells[1].Value.ToString().Trim();
-            string Clientname = dataGridView5.CurrentRow.Cells[9].Value.ToString().Trim();
-            string IdProduct = dataGridView5.CurrentRow.Cells[2].Value.ToString().Trim();
-            string ProductName = dataGridView5.CurrentRow.Cells[10].Value.ToString().Trim();
-            string ProductDes = dataGridView5.CurrentRow.Cells[11].Value.ToString().Trim();
-            string IdEx = dataGridView5.CurrentRow.Cells[5].Value.ToString().Trim();
-            string RepairCost = dataGridView5.CurrentRow.Cells[7].Value.ToString().Trim();
+            string ClientContact = dataGridView5.CurrentRow.Cells[6].Value.ToString().Trim();
+            string Clientname = dataGridView5.CurrentRow.Cells[5].Value.ToString().Trim();
+            string IdProduct = dataGridView5.CurrentRow.Cells[1].Value.ToString().Trim();
+            string ProductName = dataGridView5.CurrentRow.Cells[2].Value.ToString().Trim();
+            string ProductDes = dataGridView5.CurrentRow.Cells[3].Value.ToString().Trim();
+            string IdEx = dataGridView5.CurrentRow.Cells[9].Value.ToString().Trim();
+            string RepairCost = dataGridView5.CurrentRow.Cells[12].Value.ToString().Trim();
 
             string fileName = $"check_{DateTime.Now.ToString("yyyyMMdd_HHmmss")}.pdf";
             string filePath = Path.Combine("C:\\Users\\Федор\\Desktop\\check", fileName);
@@ -457,7 +460,7 @@ namespace fixmaster
                 paragraph.Add($"_______________________________________________________________________\n");
                 paragraph.Add($"\n");
                 paragraph.Add($"Номер заказа: {OrderNumber}\n");
-                paragraph.Add($"Код клиента: {IdClient} Имя клиента: {Clientname}\n");
+                paragraph.Add($"Контакты клиента: {ClientContact} Имя клиента: {Clientname}\n");
                 paragraph.Add($"Название изделия: {ProductName}\n");
                 paragraph.Add($"Описание поломки: {ProductDes}\n");
                 paragraph.Add($"Исполнитель: {IdEx}\n");
@@ -497,35 +500,46 @@ namespace fixmaster
 
         }
 
+        private void comboBoxj_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView8_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
         private void button_save_Click(object sender, EventArgs e)
         {
-            if (textBox_id_zakaz.Text != "" && comboBox_id_tovar.Text != "" && comboBoxIdclient.Text != "" && comboBoxIdproduct.Text != "" && textBox_cena_zakaza.Text != "" && textBox_zakaz_col.Text != "" && textBox_fam.Text != "" && comboBox_satus.Text != "")
+            if (textBox_id_zakaz.Text != "" && comboBox_id_tovar.Text != "" && comboBoxIdclient.Text != "" && comboBoxIdproduct.Text != "" && textBox_cena_zakaza.Text != "" && textBox_zakaz_col.Text != "" && comboBox_satus.Text != "")
             {
-                EditIdOr = textBox_id_zakaz.Text ;
-                 EditIdParts = comboBox_id_tovar.Text;
-                 EditIdclient = comboBoxIdclient.Text;
-                EditOrderStatus = comboBox_satus.Text;
-                EditIdExecutor = textBox_fam.Text;
-                EditIdProduct =comboBoxIdproduct.Text ;
-                EditRepairCost = textBox_cena_zakaza.Text;
-                EditOrderCol = textBox_zakaz_col.Text ;
-                EditClientName = textBoxCln.Text;
-                EditProductName = textBoxPrn.Text ;
-                EditProductDes = textBoxPrd.Text; 
-                
-                string l = @"SELECT clientname FROM client WHERE idclient = '" + comboBoxIdclient.Text + "'";
+                 
+
+                string l = @"SELECT clientname FROM client WHERE idclient = '" + textBoxCln.Text + "'";
                 DBconnection.msCommand.CommandText = l;
                 Object resultl = DBconnection.msCommand.ExecuteScalar();
-                string pn = @"SELECT productname FROM product WHERE idproduct = '" + comboBoxIdproduct.Text + "'";
+                string pn = @"SELECT productname FROM product WHERE idproduct = '" + textBoxPrn.Text + "'";
                 DBconnection.msCommand.CommandText = pn;
                 Object resultpn = DBconnection.msCommand.ExecuteScalar();
-                string pd = @"SELECT productdes FROM product WHERE idproduct = '" + comboBoxIdproduct.Text + "'";
+                string pd = @"SELECT productdes FROM product WHERE idproduct = '" + textBoxPrn.Text + "'";
                 DBconnection.msCommand.CommandText = pd;
                 Object resultpd = DBconnection.msCommand.ExecuteScalar();
 
-                if (textBox_id_zakaz.Text == EditIdOr && comboBox_id_tovar.Text == EditIdParts && comboBoxIdclient.Text == EditIdclient && comboBox_satus.Text == EditOrderStatus && textBox_fam.Text == EditIdExecutor && comboBoxIdproduct.Text == EditIdProduct && textBox_cena_zakaza.Text == EditRepairCost && textBox_zakaz_col.Text == EditOrderCol)
+                if (EditClientName == comboBoxIdclient.Text &&
+                 EditProductName == comboBoxIdproduct.Text &&
+                 EditProductDes == textBoxPrd.Text &&
+                EditIdOr == textBox_id_zakaz.Text &&
+                 EditIdParts == comboBox_id_tovar.Text &&
+                 EditIdclient == textBoxCln.Text &&
+                EditOrderStatus == comboBox_satus.Text &&
+                EditIdExecutor == comboBoxExecutor.Text &&
+                EditIdProduct == textBoxPrn.Text &&
+                EditRepairCost == textBox_cena_zakaza.Text &&
+                EditOrderCol == textBox_zakaz_col.Text &&
+                EditClCon == comboBoxClcon.Text)
                 {
-                    if (OrderClass.EditZakaz(int.Parse(textBox_id_zakaz.Text), comboBoxIdclient.Text, comboBoxIdproduct.Text, comboBox_satus.Text, textBox_fam.Text, comboBox_id_tovar.Text, resultl.ToString(), resultpn.ToString(), resultpd.ToString()))
+                    if (OrderClass.EditZakaz(int.Parse(textBox_id_zakaz.Text), comboBox_satus.Text, comboBoxClcon.Text))
                     {
                         MessageBox.Show("Данные заказа успешно изменены", "Данные изменены", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         OrderClass.GetZakaz();
@@ -538,9 +552,16 @@ namespace fixmaster
                 }
                 else
                 {
-                    MessageBox.Show("Данные заказа успешно изменены", "Данные изменены", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    OrderClass.GetZakaz();
-                    PartClass.GetPart();
+                    if (OrderClass.EditZakaz(int.Parse(textBox_id_zakaz.Text), comboBox_satus.Text, comboBoxClcon.Text))
+                    {
+                        MessageBox.Show("Данные заказа успешно изменены", "Данные изменены", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        OrderClass.GetZakaz();
+                        PartClass.GetPart();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Ошибка при редактировании записи", "Ошибка редактирования", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
             else
@@ -552,6 +573,10 @@ namespace fixmaster
             textBox_fam.Enabled = true;
             textBox_zakaz_col.Enabled = true;
             comboBoxIdproduct.Enabled = true;
+            comboBoxExecutor.Enabled = true;
+            comboBox_id_tovar.Enabled = true;
+            comboBoxj.Enabled = true;
+            comboBoxClcon.Enabled = true;
             textBox_id_zakaz.Text = "";
             comboBox_id_tovar.Text = "";
             comboBoxIdclient.Text = "";
@@ -563,6 +588,8 @@ namespace fixmaster
             textBoxCln.Text = "";
             textBoxPrn.Text = "";
             textBoxPrd.Text = "";
+            comboBoxClcon.Text = "";
+            comboBoxExecutor.Text = "";
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -915,7 +942,7 @@ Object resultpn = DBconnection.msCommand.ExecuteScalar();
                 if (Convert.ToInt32(resultcoldo) >= y)
                 {
 
-                    if (OrderClass.addZakaz(comboBoxIdclient.Text, Convert.ToString(resultpn), comboBox_satus.Text, comboBoxExecutor.Text, comboBox_id_tovar.Text, Convert.ToInt32(textBox_cena_zakaza.Text), textBox_zakaz_col.Text, resultl.ToString(), comboBoxIdproduct.Text, resultpd.ToString()))
+                    if (OrderClass.addZakaz(Convert.ToString(resultl), Convert.ToString(resultpn), comboBox_satus.Text, comboBoxExecutor.Text, comboBox_id_tovar.Text, Convert.ToInt32(textBox_cena_zakaza.Text), textBox_zakaz_col.Text, comboBoxIdclient.Text, comboBoxIdproduct.Text, resultpd.ToString(), comboBoxClcon.Text))
                     {
                         int col_col = Convert.ToInt32(resultcoldo) - y;
                         string Obnovtov = @"UPDATE parts SET partscol = '" + col_col + "' WHERE idparts = '" + comboBox_id_tovar.Text + "'";

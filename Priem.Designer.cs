@@ -77,6 +77,7 @@
             this.textBoxIdProduct = new System.Windows.Forms.TextBox();
             this.dataGridView4 = new System.Windows.Forms.DataGridView();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.comboBoxClcon = new System.Windows.Forms.ComboBox();
             this.label24 = new System.Windows.Forms.Label();
             this.buttonReload = new System.Windows.Forms.Button();
             this.buttonCheck = new System.Windows.Forms.Button();
@@ -115,10 +116,7 @@
             this.label17 = new System.Windows.Forms.Label();
             this.textBox_id_zakaz = new System.Windows.Forms.TextBox();
             this.dataGridView8 = new System.Windows.Forms.DataGridView();
-            this.dataGridView7 = new System.Windows.Forms.DataGridView();
-            this.dataGridView6 = new System.Windows.Forms.DataGridView();
             this.dataGridView5 = new System.Windows.Forms.DataGridView();
-            this.comboBoxClcon = new System.Windows.Forms.ComboBox();
             this.tabControl4.SuspendLayout();
             this.ClientPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
@@ -129,8 +127,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).BeginInit();
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView8)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView5)).BeginInit();
             this.SuspendLayout();
             // 
@@ -709,8 +705,6 @@
             this.tabPage4.Controls.Add(this.label17);
             this.tabPage4.Controls.Add(this.textBox_id_zakaz);
             this.tabPage4.Controls.Add(this.dataGridView8);
-            this.tabPage4.Controls.Add(this.dataGridView7);
-            this.tabPage4.Controls.Add(this.dataGridView6);
             this.tabPage4.Controls.Add(this.dataGridView5);
             this.tabPage4.Location = new System.Drawing.Point(4, 24);
             this.tabPage4.Name = "tabPage4";
@@ -720,6 +714,14 @@
             this.tabPage4.Text = "Заказы";
             this.tabPage4.UseVisualStyleBackColor = true;
             this.tabPage4.Click += new System.EventHandler(this.tabPage4_Click);
+            // 
+            // comboBoxClcon
+            // 
+            this.comboBoxClcon.FormattingEnabled = true;
+            this.comboBoxClcon.Location = new System.Drawing.Point(677, 772);
+            this.comboBoxClcon.Name = "comboBoxClcon";
+            this.comboBoxClcon.Size = new System.Drawing.Size(160, 23);
+            this.comboBoxClcon.TabIndex = 69;
             // 
             // label24
             // 
@@ -790,9 +792,9 @@
             this.label22.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label22.Location = new System.Drawing.Point(677, 809);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(149, 21);
+            this.label22.Size = new System.Drawing.Size(108, 21);
             this.label22.TabIndex = 61;
-            this.label22.Text = "Название продукта";
+            this.label22.Text = "Код продукта";
             // 
             // label21
             // 
@@ -800,9 +802,9 @@
             this.label21.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label21.Location = new System.Drawing.Point(677, 678);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(102, 21);
+            this.label21.Size = new System.Drawing.Size(98, 21);
             this.label21.TabIndex = 60;
-            this.label21.Text = "Имя клиента";
+            this.label21.Text = "Код клиента";
             // 
             // textBoxPrd
             // 
@@ -905,7 +907,7 @@
             // comboBoxPrj
             // 
             this.comboBoxPrj.FormattingEnabled = true;
-            this.comboBoxPrj.Location = new System.Drawing.Point(456, 770);
+            this.comboBoxPrj.Location = new System.Drawing.Point(455, 772);
             this.comboBoxPrj.Name = "comboBoxPrj";
             this.comboBoxPrj.Size = new System.Drawing.Size(160, 23);
             this.comboBoxPrj.TabIndex = 48;
@@ -913,7 +915,7 @@
             // comboBoxIdproduct
             // 
             this.comboBoxIdproduct.FormattingEnabled = true;
-            this.comboBoxIdproduct.Location = new System.Drawing.Point(456, 770);
+            this.comboBoxIdproduct.Location = new System.Drawing.Point(455, 772);
             this.comboBoxIdproduct.Name = "comboBoxIdproduct";
             this.comboBoxIdproduct.Size = new System.Drawing.Size(160, 23);
             this.comboBoxIdproduct.TabIndex = 47;
@@ -940,15 +942,16 @@
             // comboBoxj
             // 
             this.comboBoxj.FormattingEnabled = true;
-            this.comboBoxj.Location = new System.Drawing.Point(456, 637);
+            this.comboBoxj.Location = new System.Drawing.Point(456, 641);
             this.comboBoxj.Name = "comboBoxj";
             this.comboBoxj.Size = new System.Drawing.Size(160, 23);
             this.comboBoxj.TabIndex = 44;
+            this.comboBoxj.SelectedIndexChanged += new System.EventHandler(this.comboBoxj_SelectedIndexChanged);
             // 
             // comboBox_id_tovar
             // 
             this.comboBox_id_tovar.FormattingEnabled = true;
-            this.comboBox_id_tovar.Location = new System.Drawing.Point(456, 637);
+            this.comboBox_id_tovar.Location = new System.Drawing.Point(456, 641);
             this.comboBox_id_tovar.Name = "comboBox_id_tovar";
             this.comboBox_id_tovar.Size = new System.Drawing.Size(160, 23);
             this.comboBox_id_tovar.TabIndex = 43;
@@ -1076,44 +1079,14 @@
             this.dataGridView8.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.dataGridView8.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridView8.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView8.Location = new System.Drawing.Point(1059, 18);
+            this.dataGridView8.Location = new System.Drawing.Point(301, 6);
             this.dataGridView8.Name = "dataGridView8";
             this.dataGridView8.ReadOnly = true;
             this.dataGridView8.RowTemplate.Height = 25;
             this.dataGridView8.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView8.Size = new System.Drawing.Size(445, 192);
             this.dataGridView8.TabIndex = 6;
-            // 
-            // dataGridView7
-            // 
-            this.dataGridView7.AllowUserToAddRows = false;
-            this.dataGridView7.AllowUserToDeleteRows = false;
-            this.dataGridView7.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.dataGridView7.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dataGridView7.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView7.Location = new System.Drawing.Point(608, 18);
-            this.dataGridView7.Name = "dataGridView7";
-            this.dataGridView7.ReadOnly = true;
-            this.dataGridView7.RowTemplate.Height = 25;
-            this.dataGridView7.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView7.Size = new System.Drawing.Size(445, 192);
-            this.dataGridView7.TabIndex = 5;
-            // 
-            // dataGridView6
-            // 
-            this.dataGridView6.AllowUserToAddRows = false;
-            this.dataGridView6.AllowUserToDeleteRows = false;
-            this.dataGridView6.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.dataGridView6.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dataGridView6.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView6.Location = new System.Drawing.Point(157, 18);
-            this.dataGridView6.Name = "dataGridView6";
-            this.dataGridView6.ReadOnly = true;
-            this.dataGridView6.RowTemplate.Height = 25;
-            this.dataGridView6.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView6.Size = new System.Drawing.Size(445, 192);
-            this.dataGridView6.TabIndex = 4;
-            this.dataGridView6.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView6_CellContentClick);
+            this.dataGridView8.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView8_CellContentClick);
             // 
             // dataGridView5
             // 
@@ -1122,21 +1095,13 @@
             this.dataGridView5.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.dataGridView5.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridView5.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView5.Location = new System.Drawing.Point(301, 241);
+            this.dataGridView5.Location = new System.Drawing.Point(301, 204);
             this.dataGridView5.Name = "dataGridView5";
             this.dataGridView5.ReadOnly = true;
             this.dataGridView5.RowTemplate.Height = 25;
             this.dataGridView5.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView5.Size = new System.Drawing.Size(1109, 192);
+            this.dataGridView5.Size = new System.Drawing.Size(1109, 298);
             this.dataGridView5.TabIndex = 3;
-            // 
-            // comboBoxClcon
-            // 
-            this.comboBoxClcon.FormattingEnabled = true;
-            this.comboBoxClcon.Location = new System.Drawing.Point(677, 772);
-            this.comboBoxClcon.Name = "comboBoxClcon";
-            this.comboBoxClcon.Size = new System.Drawing.Size(160, 23);
-            this.comboBoxClcon.TabIndex = 69;
             // 
             // Priem
             // 
@@ -1161,8 +1126,6 @@
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView8)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView5)).EndInit();
             this.ResumeLayout(false);
 
@@ -1218,10 +1181,8 @@
         private TextBox textBoxProductname;
         private TextBox textBoxIdProduct;
         private TabPage tabPage4;
-        private DataGridView dataGridView6;
         private DataGridView dataGridView5;
         private DataGridView dataGridView8;
-        private DataGridView dataGridView7;
         private ComboBox comboBoxj;
         private ComboBox comboBox_id_tovar;
         private Label label10;

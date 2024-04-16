@@ -17,7 +17,7 @@ namespace fixmaster
         {
             try
             {
-                msCommand.CommandText = @"SELECT idorder AS 'Номер закзаа', idclient AS 'Код клиента', idproduct AS 'Код изделия', orderdate AS 'Дата оформления', orderstatus AS 'Статус выполнения', idexecutor AS 'Исполнитель', idparts AS 'Код деталей', repaircost AS 'Цена выполения. Руб', ordercol AS 'Количесвто деталей', clientname AS 'Имя клиента', productname AS 'Название изделия', productdes AS 'Описание', clientcontact AS 'Контакты' FROM fixdb.order";
+                msCommand.CommandText = @"SELECT idorder AS 'Номер заказа', idproduct AS 'Код изделия', productname AS 'Название изделия', productdes AS 'Описание', idclient AS 'Код клиента', clientname AS 'Имя клиента', clientcontact AS 'Контакты', idparts AS 'Код деталей', ordercol AS 'Количесвто деталей', idexecutor AS 'Исполнитель', orderdate AS 'Дата оформления', orderstatus AS 'Статус выполнения',   repaircost AS 'Цена выполения. Руб'    FROM fixdb.order";
                 dtZakaz.Clear();
                 msDataAdapter.SelectCommand = DBconnection.msCommand;
                 msDataAdapter.Fill(dtZakaz);
@@ -30,12 +30,12 @@ namespace fixmaster
             }
         }
 
-        static public bool addZakaz(string idclient, string idproduct, string orderstatus, string idexecutor, string idparts, int repaircost, string ordercol, string clientname, string productname, string productdes)
+        static public bool addZakaz(string idclient, string idproduct, string orderstatus, string idexecutor, string idparts, int repaircost, string ordercol, string clientname, string productname, string productdes, string clientcontact)
         {
             string v = msCommand.CommandText = "SELECT partscost FROM parts WHERE idparts = '" + idparts + "'";
             try
             {
-                msCommand.CommandText = "INSERT INTO fixdb.order VALUES (null , '" + idclient + "', '" + idproduct + "', default , '" + orderstatus + "', '" + idexecutor + "', '" + idparts + "', '" + repaircost + "', '" + ordercol+ "', '" +clientname+"', '" +productname+ "', '"+productdes+"')";
+                msCommand.CommandText = "INSERT INTO fixdb.order VALUES (null , '" + idclient + "', '" + idproduct + "', default , '" + orderstatus + "', '" + idexecutor + "', '" + idparts + "', '" + repaircost + "', '" + ordercol+ "', '" +clientname+"', '" +productname+ "', '"+productdes+"', '"+clientcontact+"')";
                 if (msCommand.ExecuteNonQuery() > 0)
                 {
                     return true;
@@ -79,11 +79,11 @@ namespace fixmaster
             }
         }
 
-        static public bool EditZakaz(int idorder, string idclient, string idproduct, string orderstatus, string idexecutor, string idparts, string clientname, string productname, string productdes)
+        static public bool EditZakaz(int idorder, string orderstatus,string clcon)
         {
             try
             {
-                msCommand.CommandText = "UPDATE fixdb.order SET idorder = '" + idorder + "', idclient = '" + idclient + "', idproduct = '" + idproduct + "', orderstatus = '" + orderstatus + "', idexecutor = '" + idexecutor + "', idparts = '" + idparts + "' , clientname = '"+clientname+"', productname = '" +productname+"', productdes = '"+productdes+"' WHERE idorder = '" + idorder + "'";
+                msCommand.CommandText = "UPDATE fixdb.order SET orderstatus = '" + orderstatus + "' , clientcontact = '"+ clcon +"' WHERE idorder = '" + idorder + "'";
                 //"UPDATE zakazy SET id_tovar = '" + id_tovar + "' , client_name = '" + client_name + "' , client_surname = '" + client_surname + "' , client_otch = '" + client_otch + "', id_empl = '" + id_empl + "', zakaz_ststus = '" +zakaz_status+ "' WHERE id_zakaz = '" + id_zakaz + "'";
 
                 if (msCommand.ExecuteNonQuery() > 0)
