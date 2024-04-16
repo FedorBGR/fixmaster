@@ -17,7 +17,7 @@ namespace fixmaster
         {
             try
             {
-                msCommand.CommandText = @"SELECT idorder AS 'Номер закзаа', idclient AS 'Код клиента', idproduct AS 'Код изделия', orderdate AS 'Дата оформления', orderstatus AS 'Статус выполнения', idexecutor AS 'Код исполнителя', idparts AS 'Код деталей', repaircost AS 'Цена выполения. Руб', ordercol AS 'Количесвто деталей' FROM fixdb.order";
+                msCommand.CommandText = @"SELECT idorder AS 'Номер закзаа', idclient AS 'Код клиента', idproduct AS 'Код изделия', orderdate AS 'Дата оформления', orderstatus AS 'Статус выполнения', idexecutor AS 'Исполнитель', idparts AS 'Код деталей', repaircost AS 'Цена выполения. Руб', ordercol AS 'Количесвто деталей', clientname AS 'Имя клиента', productname AS 'Название изделия', productdes AS 'Описание', clientcontact AS 'Контакты' FROM fixdb.order";
                 dtZakaz.Clear();
                 msDataAdapter.SelectCommand = DBconnection.msCommand;
                 msDataAdapter.Fill(dtZakaz);
@@ -30,12 +30,12 @@ namespace fixmaster
             }
         }
 
-        static public bool addZakaz(int idclient, string idproduct, string orderstatus, int idexecutor, string idparts, int repaircost, string ordercol)
+        static public bool addZakaz(string idclient, string idproduct, string orderstatus, string idexecutor, string idparts, int repaircost, string ordercol, string clientname, string productname, string productdes)
         {
             string v = msCommand.CommandText = "SELECT partscost FROM parts WHERE idparts = '" + idparts + "'";
             try
             {
-                msCommand.CommandText = "INSERT INTO fixdb.order VALUES (null , '" + idclient + "', '" + idproduct + "', default , '" + orderstatus + "', '" + idexecutor + "', '" + idparts + "', '" + repaircost + "', '" + ordercol+ "')";
+                msCommand.CommandText = "INSERT INTO fixdb.order VALUES (null , '" + idclient + "', '" + idproduct + "', default , '" + orderstatus + "', '" + idexecutor + "', '" + idparts + "', '" + repaircost + "', '" + ordercol+ "', '" +clientname+"', '" +productname+ "', '"+productdes+"')";
                 if (msCommand.ExecuteNonQuery() > 0)
                 {
                     return true;
@@ -79,11 +79,11 @@ namespace fixmaster
             }
         }
 
-        static public bool EditZakaz(int idorder, int idclient, string idproduct, string orderstatus, string idexecutor, string idparts)
+        static public bool EditZakaz(int idorder, string idclient, string idproduct, string orderstatus, string idexecutor, string idparts, string clientname, string productname, string productdes)
         {
             try
             {
-                msCommand.CommandText = "UPDATE fixdb.order SET idorder = '" + idorder + "', idclient = '" + idclient + "', idproduct = '" + idproduct + "', orderstatus = '" + orderstatus + "', idexecutor = '" + idexecutor + "', idparts = '" + idparts + "' WHERE idorder = '" + idorder + "'";
+                msCommand.CommandText = "UPDATE fixdb.order SET idorder = '" + idorder + "', idclient = '" + idclient + "', idproduct = '" + idproduct + "', orderstatus = '" + orderstatus + "', idexecutor = '" + idexecutor + "', idparts = '" + idparts + "' , clientname = '"+clientname+"', productname = '" +productname+"', productdes = '"+productdes+"' WHERE idorder = '" + idorder + "'";
                 //"UPDATE zakazy SET id_tovar = '" + id_tovar + "' , client_name = '" + client_name + "' , client_surname = '" + client_surname + "' , client_otch = '" + client_otch + "', id_empl = '" + id_empl + "', zakaz_ststus = '" +zakaz_status+ "' WHERE id_zakaz = '" + id_zakaz + "'";
 
                 if (msCommand.ExecuteNonQuery() > 0)
@@ -143,6 +143,21 @@ namespace fixmaster
             catch
             {
                 MessageBox.Show("Ошибка при удалении выбранной записи", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        static public void searchZakaz(string zakazSearch)
+        {
+            try
+            {
+                msCommand.CommandText = @"SELECT idorder AS 'Номер закзаа', idclient AS 'Код клиента', idproduct AS 'Код изделия', orderdate AS 'Дата оформления', orderstatus AS 'Статус выполнения', idexecutor AS 'Исполнитель', idparts AS 'Код деталей', repaircost AS 'Цена выполения. Руб', ordercol AS 'Количесвто деталей', clientname AS 'Имя клиента', productname AS 'Название изделия', productdes AS 'Описание' FROM fixdb.order WHERE concat (idorder, clientname, productname, productdes) LIKE '%" + zakazSearch + "%' ";
+                dtZakaz.Clear();
+                msDataAdapter.SelectCommand = DBconnection.msCommand;
+                msDataAdapter.Fill(dtZakaz);
+            }
+            catch
+            {
+                MessageBox.Show("Ошибка при поиске заказа", "Ошибка поиска", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

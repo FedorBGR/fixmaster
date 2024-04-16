@@ -85,5 +85,20 @@ namespace fixmaster
                 MessageBox.Show("Ошибка при удалении выбранной записи", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        static public void searchParts(string PartSearch)
+        {
+            try
+            {
+                msCommand.CommandText = @"SELECT idparts AS 'Код детали', partsname AS 'Название детали', partsdescription AS 'Описание детали', partscol AS 'Кол-во, ШТ.', partscost AS 'Цена, РУБ.' FROM parts WHERE concat (idparts, partsname, partsdescription) LIKE '%" + PartSearch + "%' ";
+                dtPart.Clear();
+                msDataAdapter.SelectCommand = DBconnection.msCommand;
+                msDataAdapter.Fill(dtPart);
+            }
+            catch
+            {
+                MessageBox.Show("Ошибка при поиске", "Ошибка поиска", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }

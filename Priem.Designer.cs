@@ -30,6 +30,8 @@
         {
             this.tabControl4 = new System.Windows.Forms.TabControl();
             this.ClientPage = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
+            this.textBoxSearchClient = new System.Windows.Forms.TextBox();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.buttonSave = new System.Windows.Forms.Button();
             this.buttonIzm = new System.Windows.Forms.Button();
@@ -45,6 +47,8 @@
             this.textBoxIdclient = new System.Windows.Forms.TextBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.PartsPage = new System.Windows.Forms.TabPage();
+            this.button2 = new System.Windows.Forms.Button();
+            this.textBoxPartsS = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.textBoxPartcost = new System.Windows.Forms.TextBox();
@@ -73,6 +77,18 @@
             this.textBoxIdProduct = new System.Windows.Forms.TextBox();
             this.dataGridView4 = new System.Windows.Forms.DataGridView();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.label24 = new System.Windows.Forms.Label();
+            this.buttonReload = new System.Windows.Forms.Button();
+            this.buttonCheck = new System.Windows.Forms.Button();
+            this.buttonSearchOrder = new System.Windows.Forms.Button();
+            this.textBoxSearchOrder = new System.Windows.Forms.TextBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.textBoxPrd = new System.Windows.Forms.TextBox();
+            this.textBoxPrn = new System.Windows.Forms.TextBox();
+            this.textBoxCln = new System.Windows.Forms.TextBox();
+            this.comboBoxExecutor = new System.Windows.Forms.ComboBox();
             this.button_vzakaz = new System.Windows.Forms.Button();
             this.button_addZakaz = new System.Windows.Forms.Button();
             this.textBox_fam = new System.Windows.Forms.TextBox();
@@ -102,6 +118,7 @@
             this.dataGridView7 = new System.Windows.Forms.DataGridView();
             this.dataGridView6 = new System.Windows.Forms.DataGridView();
             this.dataGridView5 = new System.Windows.Forms.DataGridView();
+            this.comboBoxClcon = new System.Windows.Forms.ComboBox();
             this.tabControl4.SuspendLayout();
             this.ClientPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
@@ -132,6 +149,8 @@
             // 
             // ClientPage
             // 
+            this.ClientPage.Controls.Add(this.button1);
+            this.ClientPage.Controls.Add(this.textBoxSearchClient);
             this.ClientPage.Controls.Add(this.dataGridView2);
             this.ClientPage.Controls.Add(this.buttonSave);
             this.ClientPage.Controls.Add(this.buttonIzm);
@@ -154,6 +173,27 @@
             this.ClientPage.Text = "Клиент";
             this.ClientPage.UseVisualStyleBackColor = true;
             this.ClientPage.Click += new System.EventHandler(this.ClientPage_Click);
+            // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.button1.Location = new System.Drawing.Point(1535, 527);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(83, 34);
+            this.button1.TabIndex = 66;
+            this.button1.Text = "Поиск";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // textBoxSearchClient
+            // 
+            this.textBoxSearchClient.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.textBoxSearchClient.Location = new System.Drawing.Point(1182, 527);
+            this.textBoxSearchClient.Multiline = true;
+            this.textBoxSearchClient.Name = "textBoxSearchClient";
+            this.textBoxSearchClient.PlaceholderText = "Введите имя/контакт/код";
+            this.textBoxSearchClient.Size = new System.Drawing.Size(327, 34);
+            this.textBoxSearchClient.TabIndex = 65;
             // 
             // dataGridView2
             // 
@@ -301,6 +341,8 @@
             // 
             // PartsPage
             // 
+            this.PartsPage.Controls.Add(this.button2);
+            this.PartsPage.Controls.Add(this.textBoxPartsS);
             this.PartsPage.Controls.Add(this.label5);
             this.PartsPage.Controls.Add(this.label9);
             this.PartsPage.Controls.Add(this.textBoxPartcost);
@@ -323,6 +365,27 @@
             this.PartsPage.TabIndex = 1;
             this.PartsPage.Text = "Детали";
             this.PartsPage.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.button2.Location = new System.Drawing.Point(1601, 526);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(83, 34);
+            this.button2.TabIndex = 68;
+            this.button2.Text = "Поиск";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // textBoxPartsS
+            // 
+            this.textBoxPartsS.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.textBoxPartsS.Location = new System.Drawing.Point(1248, 526);
+            this.textBoxPartsS.Multiline = true;
+            this.textBoxPartsS.Name = "textBoxPartsS";
+            this.textBoxPartsS.PlaceholderText = "Введите код/название/описание";
+            this.textBoxPartsS.Size = new System.Drawing.Size(327, 34);
+            this.textBoxPartsS.TabIndex = 67;
             // 
             // label5
             // 
@@ -607,6 +670,19 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.comboBoxClcon);
+            this.tabPage4.Controls.Add(this.label24);
+            this.tabPage4.Controls.Add(this.buttonReload);
+            this.tabPage4.Controls.Add(this.buttonCheck);
+            this.tabPage4.Controls.Add(this.buttonSearchOrder);
+            this.tabPage4.Controls.Add(this.textBoxSearchOrder);
+            this.tabPage4.Controls.Add(this.label23);
+            this.tabPage4.Controls.Add(this.label22);
+            this.tabPage4.Controls.Add(this.label21);
+            this.tabPage4.Controls.Add(this.textBoxPrd);
+            this.tabPage4.Controls.Add(this.textBoxPrn);
+            this.tabPage4.Controls.Add(this.textBoxCln);
+            this.tabPage4.Controls.Add(this.comboBoxExecutor);
             this.tabPage4.Controls.Add(this.button_vzakaz);
             this.tabPage4.Controls.Add(this.button_addZakaz);
             this.tabPage4.Controls.Add(this.textBox_fam);
@@ -643,6 +719,119 @@
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Заказы";
             this.tabPage4.UseVisualStyleBackColor = true;
+            this.tabPage4.Click += new System.EventHandler(this.tabPage4_Click);
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label24.Location = new System.Drawing.Point(677, 746);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(128, 21);
+            this.label24.TabIndex = 68;
+            this.label24.Text = "Контакт клиента";
+            // 
+            // buttonReload
+            // 
+            this.buttonReload.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.buttonReload.Location = new System.Drawing.Point(1436, 241);
+            this.buttonReload.Name = "buttonReload";
+            this.buttonReload.Size = new System.Drawing.Size(40, 34);
+            this.buttonReload.TabIndex = 66;
+            this.buttonReload.Text = "Перезагрузка";
+            this.buttonReload.UseVisualStyleBackColor = true;
+            this.buttonReload.Click += new System.EventHandler(this.buttonReload_Click);
+            // 
+            // buttonCheck
+            // 
+            this.buttonCheck.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.buttonCheck.Location = new System.Drawing.Point(1003, 878);
+            this.buttonCheck.Name = "buttonCheck";
+            this.buttonCheck.Size = new System.Drawing.Size(153, 57);
+            this.buttonCheck.TabIndex = 65;
+            this.buttonCheck.Text = "Сформировать чек";
+            this.buttonCheck.UseVisualStyleBackColor = true;
+            this.buttonCheck.Click += new System.EventHandler(this.buttonCheck_Click);
+            // 
+            // buttonSearchOrder
+            // 
+            this.buttonSearchOrder.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.buttonSearchOrder.Location = new System.Drawing.Point(1655, 562);
+            this.buttonSearchOrder.Name = "buttonSearchOrder";
+            this.buttonSearchOrder.Size = new System.Drawing.Size(83, 34);
+            this.buttonSearchOrder.TabIndex = 64;
+            this.buttonSearchOrder.Text = "Поиск";
+            this.buttonSearchOrder.UseVisualStyleBackColor = true;
+            this.buttonSearchOrder.Click += new System.EventHandler(this.buttonSearchOrder_Click);
+            // 
+            // textBoxSearchOrder
+            // 
+            this.textBoxSearchOrder.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.textBoxSearchOrder.Location = new System.Drawing.Point(1302, 562);
+            this.textBoxSearchOrder.Multiline = true;
+            this.textBoxSearchOrder.Name = "textBoxSearchOrder";
+            this.textBoxSearchOrder.PlaceholderText = "Введите номер заказ/имя клиента/имя исполнителя";
+            this.textBoxSearchOrder.Size = new System.Drawing.Size(327, 34);
+            this.textBoxSearchOrder.TabIndex = 63;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label23.Location = new System.Drawing.Point(301, 889);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(148, 21);
+            this.label23.TabIndex = 62;
+            this.label23.Text = "Описание поломки";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label22.Location = new System.Drawing.Point(677, 809);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(149, 21);
+            this.label22.TabIndex = 61;
+            this.label22.Text = "Название продукта";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label21.Location = new System.Drawing.Point(677, 678);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(102, 21);
+            this.label21.TabIndex = 60;
+            this.label21.Text = "Имя клиента";
+            // 
+            // textBoxPrd
+            // 
+            this.textBoxPrd.Location = new System.Drawing.Point(456, 887);
+            this.textBoxPrd.Name = "textBoxPrd";
+            this.textBoxPrd.Size = new System.Drawing.Size(160, 23);
+            this.textBoxPrd.TabIndex = 59;
+            // 
+            // textBoxPrn
+            // 
+            this.textBoxPrn.Location = new System.Drawing.Point(677, 833);
+            this.textBoxPrn.Name = "textBoxPrn";
+            this.textBoxPrn.Size = new System.Drawing.Size(160, 23);
+            this.textBoxPrn.TabIndex = 58;
+            // 
+            // textBoxCln
+            // 
+            this.textBoxCln.Location = new System.Drawing.Point(677, 702);
+            this.textBoxCln.Name = "textBoxCln";
+            this.textBoxCln.Size = new System.Drawing.Size(160, 23);
+            this.textBoxCln.TabIndex = 57;
+            // 
+            // comboBoxExecutor
+            // 
+            this.comboBoxExecutor.FormattingEnabled = true;
+            this.comboBoxExecutor.Location = new System.Drawing.Point(677, 573);
+            this.comboBoxExecutor.Name = "comboBoxExecutor";
+            this.comboBoxExecutor.Size = new System.Drawing.Size(160, 23);
+            this.comboBoxExecutor.TabIndex = 56;
             // 
             // button_vzakaz
             // 
@@ -668,7 +857,7 @@
             // 
             // textBox_fam
             // 
-            this.textBox_fam.Location = new System.Drawing.Point(608, 871);
+            this.textBox_fam.Location = new System.Drawing.Point(677, 573);
             this.textBox_fam.Name = "textBox_fam";
             this.textBox_fam.Size = new System.Drawing.Size(160, 23);
             this.textBox_fam.TabIndex = 53;
@@ -677,11 +866,11 @@
             // 
             this.label20.AutoSize = true;
             this.label20.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label20.Location = new System.Drawing.Point(470, 869);
+            this.label20.Location = new System.Drawing.Point(674, 549);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(132, 21);
+            this.label20.Size = new System.Drawing.Size(104, 21);
             this.label20.TabIndex = 52;
-            this.label20.Text = "Код исполнителя";
+            this.label20.Text = "Исполнитель";
             // 
             // comboBox_satus
             // 
@@ -690,7 +879,7 @@
             "Принят",
             "В работе",
             "Завершен"});
-            this.comboBox_satus.Location = new System.Drawing.Point(608, 826);
+            this.comboBox_satus.Location = new System.Drawing.Point(456, 833);
             this.comboBox_satus.Name = "comboBox_satus";
             this.comboBox_satus.Size = new System.Drawing.Size(160, 23);
             this.comboBox_satus.TabIndex = 51;
@@ -699,7 +888,7 @@
             // 
             this.label19.AutoSize = true;
             this.label19.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label19.Location = new System.Drawing.Point(495, 828);
+            this.label19.Location = new System.Drawing.Point(343, 835);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(107, 21);
             this.label19.TabIndex = 50;
@@ -708,7 +897,7 @@
             // 
             // textBoxj
             // 
-            this.textBoxj.Location = new System.Drawing.Point(608, 703);
+            this.textBoxj.Location = new System.Drawing.Point(677, 637);
             this.textBoxj.Name = "textBoxj";
             this.textBoxj.Size = new System.Drawing.Size(160, 23);
             this.textBoxj.TabIndex = 49;
@@ -716,7 +905,7 @@
             // comboBoxPrj
             // 
             this.comboBoxPrj.FormattingEnabled = true;
-            this.comboBoxPrj.Location = new System.Drawing.Point(608, 786);
+            this.comboBoxPrj.Location = new System.Drawing.Point(456, 770);
             this.comboBoxPrj.Name = "comboBoxPrj";
             this.comboBoxPrj.Size = new System.Drawing.Size(160, 23);
             this.comboBoxPrj.TabIndex = 48;
@@ -724,7 +913,7 @@
             // comboBoxIdproduct
             // 
             this.comboBoxIdproduct.FormattingEnabled = true;
-            this.comboBoxIdproduct.Location = new System.Drawing.Point(608, 786);
+            this.comboBoxIdproduct.Location = new System.Drawing.Point(456, 770);
             this.comboBoxIdproduct.Name = "comboBoxIdproduct";
             this.comboBoxIdproduct.Size = new System.Drawing.Size(160, 23);
             this.comboBoxIdproduct.TabIndex = 47;
@@ -733,16 +922,16 @@
             // 
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label18.Location = new System.Drawing.Point(503, 784);
+            this.label18.Location = new System.Drawing.Point(378, 770);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(99, 21);
+            this.label18.Size = new System.Drawing.Size(71, 21);
             this.label18.TabIndex = 46;
-            this.label18.Text = "Код изделия";
+            this.label18.Text = "Изделие";
             // 
             // comboBoxIdclient
             // 
             this.comboBoxIdclient.FormattingEnabled = true;
-            this.comboBoxIdclient.Location = new System.Drawing.Point(608, 661);
+            this.comboBoxIdclient.Location = new System.Drawing.Point(456, 702);
             this.comboBoxIdclient.Name = "comboBoxIdclient";
             this.comboBoxIdclient.Size = new System.Drawing.Size(160, 23);
             this.comboBoxIdclient.TabIndex = 45;
@@ -751,7 +940,7 @@
             // comboBoxj
             // 
             this.comboBoxj.FormattingEnabled = true;
-            this.comboBoxj.Location = new System.Drawing.Point(608, 619);
+            this.comboBoxj.Location = new System.Drawing.Point(456, 637);
             this.comboBoxj.Name = "comboBoxj";
             this.comboBoxj.Size = new System.Drawing.Size(160, 23);
             this.comboBoxj.TabIndex = 44;
@@ -759,7 +948,7 @@
             // comboBox_id_tovar
             // 
             this.comboBox_id_tovar.FormattingEnabled = true;
-            this.comboBox_id_tovar.Location = new System.Drawing.Point(608, 619);
+            this.comboBox_id_tovar.Location = new System.Drawing.Point(456, 637);
             this.comboBox_id_tovar.Name = "comboBox_id_tovar";
             this.comboBox_id_tovar.Size = new System.Drawing.Size(160, 23);
             this.comboBox_id_tovar.TabIndex = 43;
@@ -768,7 +957,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label10.Location = new System.Drawing.Point(471, 748);
+            this.label10.Location = new System.Drawing.Point(677, 863);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(121, 21);
             this.label10.TabIndex = 42;
@@ -778,7 +967,7 @@
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label14.Location = new System.Drawing.Point(422, 701);
+            this.label14.Location = new System.Drawing.Point(677, 613);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(180, 21);
             this.label14.TabIndex = 41;
@@ -786,14 +975,14 @@
             // 
             // textBox_cena_zakaza
             // 
-            this.textBox_cena_zakaza.Location = new System.Drawing.Point(608, 750);
+            this.textBox_cena_zakaza.Location = new System.Drawing.Point(677, 887);
             this.textBox_cena_zakaza.Name = "textBox_cena_zakaza";
             this.textBox_cena_zakaza.Size = new System.Drawing.Size(160, 23);
             this.textBox_cena_zakaza.TabIndex = 40;
             // 
             // textBox_zakaz_col
             // 
-            this.textBox_zakaz_col.Location = new System.Drawing.Point(608, 703);
+            this.textBox_zakaz_col.Location = new System.Drawing.Point(677, 637);
             this.textBox_zakaz_col.Name = "textBox_zakaz_col";
             this.textBox_zakaz_col.Size = new System.Drawing.Size(160, 23);
             this.textBox_zakaz_col.TabIndex = 39;
@@ -846,18 +1035,18 @@
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label15.Location = new System.Drawing.Point(492, 659);
+            this.label15.Location = new System.Drawing.Point(389, 702);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(98, 21);
+            this.label15.Size = new System.Drawing.Size(60, 21);
             this.label15.TabIndex = 34;
-            this.label15.Text = "Код клиента";
+            this.label15.Text = "Клиент";
             this.label15.Click += new System.EventHandler(this.label15_Click);
             // 
             // label16
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label16.Location = new System.Drawing.Point(503, 617);
+            this.label16.Location = new System.Drawing.Point(360, 639);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(90, 21);
             this.label16.TabIndex = 33;
@@ -867,7 +1056,7 @@
             // 
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label17.Location = new System.Drawing.Point(503, 575);
+            this.label17.Location = new System.Drawing.Point(363, 575);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(87, 21);
             this.label17.TabIndex = 32;
@@ -875,7 +1064,7 @@
             // 
             // textBox_id_zakaz
             // 
-            this.textBox_id_zakaz.Location = new System.Drawing.Point(608, 573);
+            this.textBox_id_zakaz.Location = new System.Drawing.Point(456, 573);
             this.textBox_id_zakaz.Name = "textBox_id_zakaz";
             this.textBox_id_zakaz.Size = new System.Drawing.Size(160, 23);
             this.textBox_id_zakaz.TabIndex = 29;
@@ -933,13 +1122,21 @@
             this.dataGridView5.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.dataGridView5.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridView5.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView5.Location = new System.Drawing.Point(399, 241);
+            this.dataGridView5.Location = new System.Drawing.Point(301, 241);
             this.dataGridView5.Name = "dataGridView5";
             this.dataGridView5.ReadOnly = true;
             this.dataGridView5.RowTemplate.Height = 25;
             this.dataGridView5.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView5.Size = new System.Drawing.Size(900, 192);
+            this.dataGridView5.Size = new System.Drawing.Size(1109, 192);
             this.dataGridView5.TabIndex = 3;
+            // 
+            // comboBoxClcon
+            // 
+            this.comboBoxClcon.FormattingEnabled = true;
+            this.comboBoxClcon.Location = new System.Drawing.Point(677, 772);
+            this.comboBoxClcon.Name = "comboBoxClcon";
+            this.comboBoxClcon.Size = new System.Drawing.Size(160, 23);
+            this.comboBoxClcon.TabIndex = 69;
             // 
             // Priem
             // 
@@ -1050,5 +1247,22 @@
         private ComboBox comboBox_satus;
         private Button button_vzakaz;
         private Button button_addZakaz;
+        private ComboBox comboBoxExecutor;
+        private Label label23;
+        private Label label22;
+        private Label label21;
+        private TextBox textBoxPrd;
+        private TextBox textBoxPrn;
+        private TextBox textBoxCln;
+        private Button buttonSearchOrder;
+        private TextBox textBoxSearchOrder;
+        private Button button1;
+        private TextBox textBoxSearchClient;
+        private Button button2;
+        private TextBox textBoxPartsS;
+        private Button buttonCheck;
+        private Button buttonReload;
+        private Label label24;
+        private ComboBox comboBoxClcon;
     }
 }

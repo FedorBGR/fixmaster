@@ -86,5 +86,19 @@ namespace fixmaster
             }
         }
 
+        static public void searchClient(string ClientSearch)
+        {
+            try
+            {
+                msCommand.CommandText = @"SELECT idclient AS 'Код клиента', clientname AS 'Имя', clientcontact AS 'Контактные данные', idclassclient AS 'Код класса' FROM client WHERE concat (idclient, clientname, clientcontact) LIKE '%" + ClientSearch + "%' ";
+                dtClient.Clear();
+                msDataAdapter.SelectCommand = DBconnection.msCommand;
+                msDataAdapter.Fill(dtClient);
+            }
+            catch
+            {
+                MessageBox.Show("Ошибка при поиске", "Ошибка поиска", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }

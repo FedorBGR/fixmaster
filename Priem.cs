@@ -9,6 +9,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using System.Diagnostics;
+
 
 namespace fixmaster
 {
@@ -30,11 +34,13 @@ namespace fixmaster
             buttonAddvzakaz.Enabled = false;
             button_save.Enabled = false;
             textBox_id_zakaz.Enabled = false;
+            DataIntoComboxClcon();
             DataIntocomboBoxIdproduct();
             DataIntoComboxPrj();
             DataIntoComboxIdTovar();
             DataIntoComboxj();
             DataIntoComboxIdclient();
+            DataIntoComboxExecutor();
             textBoxj.Visible = false;
             comboBoxj.Visible = false;
             comboBoxPrj.Visible = false;
@@ -62,6 +68,11 @@ namespace fixmaster
             OrderClass.GetZakaz();
             dataGridView5.DataSource = OrderClass.dtZakaz;
             DataIntoComboxClientClass();
+            textBoxCln.Enabled = false;
+            textBoxPrd.Enabled = false;
+            textBoxPrn.Enabled = false;
+            buttonAddvzakaz.Visible = false;
+            button_vzakaz.Visible = false;
         }
 
         private void DataIntoComboxIdTovar()
@@ -92,13 +103,13 @@ namespace fixmaster
 
         private void DataIntocomboBoxIdproduct()
         {
-            string sql = @"SELECT idproduct FROM product";
+            string sql = @"SELECT productname FROM product";
             DBconnection.msCommand.CommandText = sql;
             using (var reader = DBconnection.msCommand.ExecuteReader())
             {
                 while (reader.Read())
                 {
-                    comboBoxIdproduct.Items.Add(reader["idproduct"].ToString());
+                    comboBoxIdproduct.Items.Add(reader["productname"].ToString());
                 }
             }
         }
@@ -116,15 +127,28 @@ namespace fixmaster
             }
         }
 
-        private void DataIntoComboxIdclient()
+        private void DataIntoComboxClcon()
         {
-            string sql = @"SELECT idclient FROM client";
+            string sql = @"SELECT clientcontact FROM client";
             DBconnection.msCommand.CommandText = sql;
             using (var reader = DBconnection.msCommand.ExecuteReader())
             {
                 while (reader.Read())
                 {
-                    comboBoxIdclient.Items.Add(reader["idclient"].ToString());
+                    comboBoxClcon.Items.Add(reader["clientcontact"].ToString());
+                }
+            }
+        }
+
+        private void DataIntoComboxIdclient()
+        {
+            string sql = @"SELECT clientname FROM client";
+            DBconnection.msCommand.CommandText = sql;
+            using (var reader = DBconnection.msCommand.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    comboBoxIdclient.Items.Add(reader["clientname"].ToString());
                 }
             }
         }
@@ -142,9 +166,22 @@ namespace fixmaster
             }
         }
 
+        private void DataIntoComboxExecutor()
+        {
+            string sql = @"SELECT executorname FROM executor";
+            DBconnection.msCommand.CommandText = sql;
+            using (var reader = DBconnection.msCommand.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    comboBoxExecutor.Items.Add(reader["executorname"].ToString());
+                }
+            }
+        }
+
         private void buttonAdd_Click(object sender, EventArgs e)
         {
-            if ( textBoxClientname.Text != "" && textBoxClientcontact.Text != "" && comboBoxClassclient.Text != "")
+            if (textBoxClientname.Text != "" && textBoxClientcontact.Text != "" && comboBoxClassclient.Text != "")
             {
                 string sql = @"SELECT idclient FROM client WHERE clientname = '" + textBoxClientname + "' and clientcontact = '" + textBoxClientcontact + "'";
                 DBconnection.msCommand.CommandText = sql;
@@ -200,7 +237,7 @@ namespace fixmaster
         static public string EditId, EditName, EditContact, EditClass;
         static public string EditIdP, EditNameP, EditDesP, EditColP, EditCostP;
         static public string EditIdPr, EditNamePr, EditDesPr;
-        static public string EditIdOr, EditIdclient, EditIdProduct, EditOrderDate, EditOrderStatus, EditIdExecutor, EditIdParts, EditRepairCost, EditOrderCol;
+        static public string EditIdOr, EditIdclient, EditIdProduct, EditOrderDate, EditOrderStatus, EditIdExecutor, EditIdParts, EditRepairCost, EditOrderCol, EditClientName, EditProductName, EditProductDes;
 
         private void label8_Click(object sender, EventArgs e)
         {
@@ -273,7 +310,13 @@ namespace fixmaster
             EditIdParts = dataGridView5.CurrentRow.Cells[6].Value.ToString();
             EditRepairCost = dataGridView5.CurrentRow.Cells[7].Value.ToString();
             EditOrderCol = dataGridView5.CurrentRow.Cells[8].Value.ToString();
+            EditClientName = dataGridView5.CurrentRow.Cells[9].Value.ToString();
+            EditProductName = dataGridView5.CurrentRow.Cells[10].Value.ToString();
+            EditProductDes = dataGridView5.CurrentRow.Cells[11].Value.ToString();
 
+            textBoxCln.Text = EditClientName;
+            textBoxPrn.Text = EditProductName;
+            textBoxPrd.Text = EditProductDes;
             textBox_id_zakaz.Text = EditIdOr;
             comboBox_id_tovar.Text = EditIdParts;
             comboBoxIdclient.Text = EditIdclient;
@@ -289,6 +332,171 @@ namespace fixmaster
             button_save.Enabled = true;
         }
 
+        private void buttonSearchOrder_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (textBoxSearchOrder.Text != "")
+                {
+                    string ZakazSearch = textBoxSearchOrder.Text;
+                    OrderClass.searchZakaz(ZakazSearch);
+
+                    if (dataGridView5.RowCount == 0)
+                    {
+                        MessageBox.Show("Номер заказа не обнаружен", "Товар не найден", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        textBoxSearchOrder.Text = "";
+                        OrderClass.GetZakaz();
+                        ProductClass.GetProduct();
+                    }
+
+
+                }
+
+                else
+                {
+                    MessageBox.Show("Введите данные в поле поиска", "Нет данных для поиска", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Ошибка при поиске", "Search ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            try
+            {
+                if (textBoxSearchClient.Text != "")
+                {
+                    string ClientSearch = textBoxSearchClient.Text;
+                    ClientClass.searchClient(ClientSearch);
+
+                    if (dataGridView1.RowCount == 0)
+                    {
+                        MessageBox.Show("Не нашлость совпадений", "Клиент не найден", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        textBoxSearchClient.Text = "";
+                        ClientClass.GetClient();
+                    }
+
+
+                }
+
+                else
+                {
+                    MessageBox.Show("Введите данные в поле поиска", "Нет данных для поиска", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Ошибка при поиске", "Search ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (textBoxPartsS.Text != "")
+                {
+                    string PartSearch = textBoxPartsS.Text;
+                    PartClass.searchParts(PartSearch);
+
+                    if (dataGridView3.RowCount == 0)
+                    {
+                        MessageBox.Show("Деталь не обнаружена", "Товар не найден", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        textBoxSearchOrder.Text = "";
+                        PartClass.GetPart();
+                    }
+
+
+                }
+
+                else
+                {
+                    MessageBox.Show("Введите данные в поле поиска", "Нет данных для поиска", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Ошибка при поиске", "Search ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void buttonCheck_Click(object sender, EventArgs e)
+        {
+            string OrderNumber = dataGridView5.CurrentRow.Cells[0].Value.ToString().Trim();
+            string IdClient = dataGridView5.CurrentRow.Cells[1].Value.ToString().Trim();
+            string Clientname = dataGridView5.CurrentRow.Cells[9].Value.ToString().Trim();
+            string IdProduct = dataGridView5.CurrentRow.Cells[2].Value.ToString().Trim();
+            string ProductName = dataGridView5.CurrentRow.Cells[10].Value.ToString().Trim();
+            string ProductDes = dataGridView5.CurrentRow.Cells[11].Value.ToString().Trim();
+            string IdEx = dataGridView5.CurrentRow.Cells[5].Value.ToString().Trim();
+            string RepairCost = dataGridView5.CurrentRow.Cells[7].Value.ToString().Trim();
+
+            string fileName = $"check_{DateTime.Now.ToString("yyyyMMdd_HHmmss")}.pdf";
+            string filePath = Path.Combine("C:\\Users\\Федор\\Desktop\\check", fileName);
+
+            Document doc = new Document();
+            try
+            {
+                PdfWriter.GetInstance(doc, new FileStream(filePath, FileMode.Create));
+
+                // Открываем документ для записи
+                doc.Open();
+
+                // Выбираем шрифт, поддерживающий кириллицу
+                BaseFont baseFont = BaseFont.CreateFont(@"D:\fonts\Шрифты от Облачного\ARIAL.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+                iTextSharp.text.Font font = new iTextSharp.text.Font(baseFont, 12, iTextSharp.text.Font.NORMAL);
+
+
+                // Добавляем текст и информацию о заказе в документ
+                Paragraph paragraph = new Paragraph();
+                paragraph.Alignment = Element.ALIGN_LEFT;
+                paragraph.Font = font; // Устанавливаем выбранный шрифт
+                paragraph.Add($"_______________________________________________________________________\n");
+                paragraph.Add($"\n");
+                paragraph.Add($"Номер заказа: {OrderNumber}\n");
+                paragraph.Add($"Код клиента: {IdClient} Имя клиента: {Clientname}\n");
+                paragraph.Add($"Название изделия: {ProductName}\n");
+                paragraph.Add($"Описание поломки: {ProductDes}\n");
+                paragraph.Add($"Исполнитель: {IdEx}\n");
+                paragraph.Add($"Итоговая сумма: {RepairCost} Руб.\n");
+                paragraph.Add($"\n");
+                paragraph.Add($"Подпись_________\n");
+                paragraph.Add($"\n");
+                paragraph.Add($"_______________________________________________________________________\n");
+
+                doc.Add(paragraph);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при создании чека: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                // Закрываем документ после завершения работы с ним
+                doc.Close();
+            }
+
+            // Отображаем сообщение об успешном сохранении чека
+            MessageBox.Show($"Чек успешно сохранен по пути: {filePath}", "Успешно", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            Process.Start("C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe", filePath);
+        }
+
+        private void buttonReload_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            var newForm = new Priem();
+            newForm.ShowDialog();
+            
+        }
+
+        private void tabPage4_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void button_save_Click(object sender, EventArgs e)
         {
             if (textBox_id_zakaz.Text != "" && comboBox_id_tovar.Text != "" && comboBoxIdclient.Text != "" && comboBoxIdproduct.Text != "" && textBox_cena_zakaza.Text != "" && textBox_zakaz_col.Text != "" && textBox_fam.Text != "" && comboBox_satus.Text != "")
@@ -301,10 +509,23 @@ namespace fixmaster
                 EditIdProduct =comboBoxIdproduct.Text ;
                 EditRepairCost = textBox_cena_zakaza.Text;
                 EditOrderCol = textBox_zakaz_col.Text ;
+                EditClientName = textBoxCln.Text;
+                EditProductName = textBoxPrn.Text ;
+                EditProductDes = textBoxPrd.Text; 
+                
+                string l = @"SELECT clientname FROM client WHERE idclient = '" + comboBoxIdclient.Text + "'";
+                DBconnection.msCommand.CommandText = l;
+                Object resultl = DBconnection.msCommand.ExecuteScalar();
+                string pn = @"SELECT productname FROM product WHERE idproduct = '" + comboBoxIdproduct.Text + "'";
+                DBconnection.msCommand.CommandText = pn;
+                Object resultpn = DBconnection.msCommand.ExecuteScalar();
+                string pd = @"SELECT productdes FROM product WHERE idproduct = '" + comboBoxIdproduct.Text + "'";
+                DBconnection.msCommand.CommandText = pd;
+                Object resultpd = DBconnection.msCommand.ExecuteScalar();
 
                 if (textBox_id_zakaz.Text == EditIdOr && comboBox_id_tovar.Text == EditIdParts && comboBoxIdclient.Text == EditIdclient && comboBox_satus.Text == EditOrderStatus && textBox_fam.Text == EditIdExecutor && comboBoxIdproduct.Text == EditIdProduct && textBox_cena_zakaza.Text == EditRepairCost && textBox_zakaz_col.Text == EditOrderCol)
                 {
-                    if (OrderClass.EditZakaz(int.Parse(textBox_id_zakaz.Text), int.Parse(comboBoxIdclient.Text), comboBoxIdproduct.Text, comboBox_satus.Text, textBox_fam.Text, comboBox_id_tovar.Text))
+                    if (OrderClass.EditZakaz(int.Parse(textBox_id_zakaz.Text), comboBoxIdclient.Text, comboBoxIdproduct.Text, comboBox_satus.Text, textBox_fam.Text, comboBox_id_tovar.Text, resultl.ToString(), resultpn.ToString(), resultpd.ToString()))
                     {
                         MessageBox.Show("Данные заказа успешно изменены", "Данные изменены", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         OrderClass.GetZakaz();
@@ -339,6 +560,9 @@ namespace fixmaster
             comboBoxIdproduct.Text = "";
             textBox_cena_zakaza.Text = "";
             textBox_zakaz_col.Text = "";
+            textBoxCln.Text = "";
+            textBoxPrn.Text = "";
+            textBoxPrd.Text = "";
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -481,7 +705,7 @@ namespace fixmaster
             textBox_zakaz_col.Text = zkc1.ToString();
             string prd1 = Convert.ToString(comboBoxPrj.Text);
             comboBoxIdproduct.Text = prd1;
-            string col_do = @"SELECT partscol FROM fixdb.parts WHERE idparts = '" + comboBox_id_tovar.Text + "'";
+            string col_do = @"SELECT partscol FROM parts WHERE idparts = '" + comboBox_id_tovar.Text + "'";
             DBconnection.msCommand.CommandText = col_do;
             Object resultcoldo = DBconnection.msCommand.ExecuteScalar();
             string a = @"SELECT idparts FROM fixdb.order WHERE idorder = '" + textBox_id_zakaz.Text + "'";
@@ -493,7 +717,7 @@ namespace fixmaster
             string c = @"SELECT ordercol FROM fixdb.order WHERE idorder = '" + textBox_id_zakaz.Text + "'";
             DBconnection.msCommand.CommandText = c;
             Object result3 = DBconnection.msCommand.ExecuteScalar();
-            string v = @"SELECT partscost FROM fixdb.parts WHERE idparts = '" + comboBox_id_tovar.Text + "'";
+            string v = @"SELECT partscost FROM parts WHERE idparts = '" + comboBox_id_tovar.Text + "'";
             DBconnection.msCommand.CommandText = v;
             Object result = DBconnection.msCommand.ExecuteScalar();
             string p = @"SELECT idproduct FROM fixdb.order WHERE idorder - '" + textBox_id_zakaz.Text + "'";
@@ -666,6 +890,16 @@ namespace fixmaster
             string v = @"SELECT partscost FROM parts WHERE idparts = '" + comboBox_id_tovar.Text + "'";
             DBconnection.msCommand.CommandText = v;
             Object result = DBconnection.msCommand.ExecuteScalar();
+            string l = @"SELECT idclient FROM client WHERE clientname = '" + comboBoxIdclient.Text + "' and clientcontact = '"+ comboBoxClcon.Text +"'";
+            DBconnection.msCommand.CommandText = l;
+            Object resultl = DBconnection.msCommand.ExecuteScalar();
+            string pn = @"SELECT idproduct FROM product WHERE productname = '" + comboBoxIdproduct.Text + "'";
+            DBconnection.msCommand.CommandText = pn;
+Object resultpn = DBconnection.msCommand.ExecuteScalar();
+            string pd = @"SELECT productdes FROM product WHERE productname = '" + comboBoxIdproduct.Text + "'";
+            DBconnection.msCommand.CommandText = pd;
+            Object resultpd = DBconnection.msCommand.ExecuteScalar();
+            
             if (result != null)
             {
                 int price = Convert.ToInt32(result);
@@ -674,14 +908,14 @@ namespace fixmaster
                 int z = x * y;
                 textBox_cena_zakaza.Text = z.ToString();
             }
-            if (comboBox_id_tovar.Text != "" && comboBoxIdclient.Text != "" && comboBoxIdproduct.Text != ""  && textBox_zakaz_col.Text != "" && textBox_fam.Text != "" && comboBox_satus.Text != "")
+            if (comboBox_id_tovar.Text != "" && comboBoxIdclient.Text != "" && comboBoxIdproduct.Text != ""  && textBox_zakaz_col.Text != "" && comboBoxExecutor.Text != "" && comboBox_satus.Text != "")
             {
                 int y = Convert.ToInt32(textBox_zakaz_col.Text);
 
                 if (Convert.ToInt32(resultcoldo) >= y)
                 {
 
-                    if (OrderClass.addZakaz(Convert.ToInt32(comboBoxIdclient.Text), comboBoxIdproduct.Text, comboBox_satus.Text, Convert.ToInt32(textBox_fam.Text), comboBox_id_tovar.Text, Convert.ToInt32(textBox_cena_zakaza.Text), textBox_zakaz_col.Text))
+                    if (OrderClass.addZakaz(comboBoxIdclient.Text, Convert.ToString(resultpn), comboBox_satus.Text, comboBoxExecutor.Text, comboBox_id_tovar.Text, Convert.ToInt32(textBox_cena_zakaza.Text), textBox_zakaz_col.Text, resultl.ToString(), comboBoxIdproduct.Text, resultpd.ToString()))
                     {
                         int col_col = Convert.ToInt32(resultcoldo) - y;
                         string Obnovtov = @"UPDATE parts SET partscol = '" + col_col + "' WHERE idparts = '" + comboBox_id_tovar.Text + "'";
@@ -698,6 +932,7 @@ namespace fixmaster
                         comboBoxIdclient.Text = "";
                         textBox_zakaz_col.Text = "";
                         comboBox_satus.Text = "";
+                        comboBoxExecutor.Text = "";
                     }
                     else
                     {
