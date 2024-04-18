@@ -31,9 +31,10 @@ namespace fixmaster
         private void Priem_Load(object sender, EventArgs e)
         {
             textBox_cena_zakaza.Enabled = false;
-            buttonAddvzakaz.Enabled = false;
+            
             button_save.Enabled = false;
             textBox_id_zakaz.Enabled = false;
+            DataintocomboBoxEmplZak();
             DataIntoComboxClcon();
             DataIntocomboBoxIdproduct();
             DataIntoComboxPrj();
@@ -60,6 +61,9 @@ namespace fixmaster
             dataGridView4.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             ProductClass.GetProduct();
             dataGridView4.DataSource = ProductClass.dtProduct;
+            dataGridView7.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            EmplOrderClass.GetEmplZakaz();
+            dataGridView7.DataSource = EmplOrderClass.dtEmplZakaz;
 
             dataGridView5.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             OrderClass.GetZakaz();
@@ -68,12 +72,11 @@ namespace fixmaster
             textBoxCln.Enabled = false;
             textBoxPrd.Enabled = false;
             textBoxPrn.Enabled = false;
-            buttonAddvzakaz.Visible = false;
-            button_vzakaz.Visible = false;
+            
         }
 
         private void DataIntoComboxIdTovar()
-        {
+        {comboBox_id_tovar.Items.Clear();
             string sql = @"SELECT idparts FROM parts";
             DBconnection.msCommand.CommandText = sql;
             using (var reader = DBconnection.msCommand.ExecuteReader())
@@ -86,7 +89,7 @@ namespace fixmaster
         }
 
         private void DataIntoComboxj()
-        {
+        {comboBoxj.Items.Clear();
             string sql = @"SELECT idparts FROM parts";
             DBconnection.msCommand.CommandText = sql;
             using (var reader = DBconnection.msCommand.ExecuteReader())
@@ -100,6 +103,7 @@ namespace fixmaster
 
         private void DataIntocomboBoxIdproduct()
         {
+            comboBoxIdproduct.Items.Clear();
             string sql = @"SELECT productname FROM product";
             DBconnection.msCommand.CommandText = sql;
             using (var reader = DBconnection.msCommand.ExecuteReader())
@@ -112,7 +116,7 @@ namespace fixmaster
         }
 
         private void DataIntoComboxPrj()
-        {
+        {comboBoxPrj.Items.Clear();
             string sql = @"SELECT idproduct FROM product";
             DBconnection.msCommand.CommandText = sql;
             using (var reader = DBconnection.msCommand.ExecuteReader())
@@ -126,6 +130,7 @@ namespace fixmaster
 
         private void DataIntoComboxClcon()
         {
+            comboBoxClcon.Items.Clear();
             string sql = @"SELECT clientcontact FROM client";
             DBconnection.msCommand.CommandText = sql;
             using (var reader = DBconnection.msCommand.ExecuteReader())
@@ -138,7 +143,7 @@ namespace fixmaster
         }
 
         private void DataIntoComboxIdclient()
-        {
+        {comboBoxIdclient.Items.Clear();
             string sql = @"SELECT clientname FROM client";
             DBconnection.msCommand.CommandText = sql;
             using (var reader = DBconnection.msCommand.ExecuteReader())
@@ -151,7 +156,7 @@ namespace fixmaster
         }
 
         private void DataIntoComboxClientClass()
-        {
+        {comboBoxClassclient.Items.Clear();
             string sql = @"SELECT idclientclass FROM clientclass";
             DBconnection.msCommand.CommandText = sql;
             using (var reader = DBconnection.msCommand.ExecuteReader())
@@ -164,7 +169,7 @@ namespace fixmaster
         }
 
         private void DataIntoComboxExecutor()
-        {
+        {comboBoxExecutor.Items.Clear();
             string sql = @"SELECT executorname FROM executor";
             DBconnection.msCommand.CommandText = sql;
             using (var reader = DBconnection.msCommand.ExecuteReader())
@@ -172,6 +177,20 @@ namespace fixmaster
                 while (reader.Read())
                 {
                     comboBoxExecutor.Items.Add(reader["executorname"].ToString());
+                }
+            }
+        }
+
+        private void DataintocomboBoxEmplZak()
+        {
+            comboBoxEmplZak.Items.Clear();
+            string sql = @"SELECT executorname FROM executor";
+            DBconnection.msCommand.CommandText = sql;
+            using (var reader = DBconnection.msCommand.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    comboBoxEmplZak.Items.Add(reader["executorname"].ToString());
                 }
             }
         }
@@ -195,10 +214,19 @@ namespace fixmaster
                     {
                         MessageBox.Show("Клиент успешно добавлен в базу.", "Клиент внесен", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         ClientClass.GetClient();
+                        OrderClass.GetZakaz();
+                        PartClass.GetPart();
                         textBoxIdclient.Text = "";
                         textBoxClientname.Text = "";
                         textBoxClientcontact.Text = "";
                         comboBoxClassclient.Text = "";
+                        DataIntoComboxClcon();
+                        DataIntocomboBoxIdproduct();
+                        DataIntoComboxPrj();
+                        DataIntoComboxIdTovar();
+                        DataIntoComboxj();
+                        DataIntoComboxIdclient();
+                        DataIntoComboxExecutor();
                     }
                     else
                     {
@@ -224,6 +252,13 @@ namespace fixmaster
                     ClientClass.GetClient();
                     dataGridView1.DataSource = ClientClass.dtClient;
                     MessageBox.Show("Клиент удален", "Удаление завершено", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    DataIntoComboxClcon();
+                    DataIntocomboBoxIdproduct();
+                    DataIntoComboxPrj();
+                    DataIntoComboxIdTovar();
+                    DataIntoComboxj();
+                    DataIntoComboxIdclient();
+                    DataIntoComboxExecutor();
                 }
             }
             catch
@@ -265,6 +300,13 @@ namespace fixmaster
                 {
                     MessageBox.Show("Данные успешно изменены", "Данные изменены", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     PartClass.GetPart();
+                    DataIntoComboxClcon();
+                    DataIntocomboBoxIdproduct();
+                    DataIntoComboxPrj();
+                    DataIntoComboxIdTovar();
+                    DataIntoComboxj();
+                    DataIntoComboxIdclient();
+                    DataIntoComboxExecutor();
                 }
                 else
                 {
@@ -457,18 +499,18 @@ namespace fixmaster
                 Paragraph paragraph = new Paragraph();
                 paragraph.Alignment = Element.ALIGN_LEFT;
                 paragraph.Font = font; // Устанавливаем выбранный шрифт
-                paragraph.Add($"_______________________________________________________________________\n");
-                paragraph.Add($"\n");
-                paragraph.Add($"Номер заказа: {OrderNumber}\n");
-                paragraph.Add($"Контакты клиента: {ClientContact} Имя клиента: {Clientname}\n");
-                paragraph.Add($"Название изделия: {ProductName}\n");
-                paragraph.Add($"Описание поломки: {ProductDes}\n");
-                paragraph.Add($"Исполнитель: {IdEx}\n");
-                paragraph.Add($"Итоговая сумма: {RepairCost} Руб.\n");
-                paragraph.Add($"\n");
-                paragraph.Add($"Подпись_________\n");
-                paragraph.Add($"\n");
-                paragraph.Add($"_______________________________________________________________________\n");
+                paragraph.Add($"_______________________________________________________________________________\n");
+                paragraph.Add($"|______________________________________________________________________________\n");
+                paragraph.Add($"|Номер заказа: {OrderNumber}                                           \n");
+                paragraph.Add($"|Контакты клиента: {ClientContact}   Имя клиента: {Clientname}         \n");
+                paragraph.Add($"|Название изделия: {ProductName}                                       \n");
+                paragraph.Add($"|Описание поломки: {ProductDes}                                        \n");
+                paragraph.Add($"|Исполнитель: {IdEx}                                                   \n");
+                paragraph.Add($"|Итоговая сумма: {RepairCost} Руб.                                     \n");
+                paragraph.Add($"|                                                                      \n");
+                paragraph.Add($"|Подпись_____________                                                  \n");
+                paragraph.Add($"|                                                                      \n");
+                paragraph.Add($"|______________________________________________________________________________\n");
 
                 doc.Add(paragraph);
             }
@@ -502,6 +544,50 @@ namespace fixmaster
 
         private void comboBoxj_SelectedIndexChanged(object sender, EventArgs e)
         {
+
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (comboBoxEmplZak.Text != "")
+                {
+                    string employeeName = comboBoxEmplZak.Text;
+                    
+                    EmplOrderClass.searchEmplZakaz(employeeName);
+                    
+
+                    if (dataGridView7.RowCount == 0)
+                    {
+                        MessageBox.Show("Номер заказа не обнаружен", "Товар не найден", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        comboBoxEmplZak.Text = "";
+                        EmplOrderClass.GetEmplZakaz();
+
+                    }
+                    decimal totalEarnings = 0;
+
+                    // Проходим по каждой строке в dataGridView7
+                    foreach (DataGridViewRow row in dataGridView7.Rows)
+                    {
+                        if (row.Cells[12].Value != null && decimal.TryParse(row.Cells[12].Value.ToString(), out decimal orderCost))
+                        {
+                            totalEarnings += orderCost;
+                        }
+                    }
+
+                    MessageBox.Show($"Сотрудник {employeeName} заработал: {totalEarnings} руб.", "Заработок", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Введите данные в поле поиска", "Нет данных для поиска", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Ошибка при поиске", "Search ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
 
         }
 
@@ -539,15 +625,31 @@ namespace fixmaster
                 EditOrderCol == textBox_zakaz_col.Text &&
                 EditClCon == comboBoxClcon.Text)
                 {
-                    if (OrderClass.EditZakaz(int.Parse(textBox_id_zakaz.Text), comboBox_satus.Text, comboBoxClcon.Text))
+                    if (EmplOrderClass.EditemplZakaz(int.Parse(textBox_id_zakaz.Text), comboBox_satus.Text, comboBoxClcon.Text))
                     {
-                        MessageBox.Show("Данные заказа успешно изменены", "Данные изменены", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        OrderClass.GetZakaz();
-                        PartClass.GetPart();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Ошибка при редактировании записи", "Ошибка редактирования", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        if (OrderClass.EditZakaz(int.Parse(textBox_id_zakaz.Text), comboBox_satus.Text, comboBoxClcon.Text))
+                        {
+                            if (comboBox_satus.Text == "Завершен")
+                            {
+                                // Удаление заказа, если статус заказа "Завершен"
+                                OrderClass.DeleteASZavrsh(textBox_id_zakaz.Text);
+                            }
+                            MessageBox.Show("Данные заказа успешно изменены", "Данные изменены", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            OrderClass.GetZakaz();
+                            PartClass.GetPart();
+                            EmplOrderClass.GetEmplZakaz();
+                            DataIntoComboxClcon();
+                            DataIntocomboBoxIdproduct();
+                            DataIntoComboxPrj();
+                            DataIntoComboxIdTovar();
+                            DataIntoComboxj();
+                            DataIntoComboxIdclient();
+                            DataIntoComboxExecutor();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Ошибка при редактировании записи", "Ошибка редактирования", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
                 }
                 else
@@ -602,7 +704,7 @@ namespace fixmaster
             EditIdProduct = dataGridView5.CurrentRow.Cells[2].Value.ToString();
 
             textBox_id_zakaz.Text = EditIdOr;
-            buttonAddvzakaz.Enabled = true;
+            
             textBoxj.Visible = true;
             comboBoxj.Visible = true;
             comboBoxPrj.Visible = true;
@@ -648,9 +750,18 @@ namespace fixmaster
                     }
 
                     // Удаляем заказ после восстановления количества товаров
+                    EmplOrderClass.deleteZakaz(delete);
                     OrderClass.deleteZakaz(delete);
+                    EmplOrderClass.GetEmplZakaz();
                     OrderClass.GetZakaz();
                     PartClass.GetPart();
+                    DataIntoComboxClcon();
+                    DataIntocomboBoxIdproduct();
+                    DataIntoComboxPrj();
+                    DataIntoComboxIdTovar();
+                    DataIntoComboxj();
+                    DataIntoComboxIdclient();
+                    DataIntoComboxExecutor();
                     dataGridView5.DataSource = OrderClass.dtZakaz;
                     MessageBox.Show("Заказ удален", "Удаление завершено", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -673,6 +784,13 @@ namespace fixmaster
                 {
                     MessageBox.Show("Данные успешно изменены", "Данные изменены", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     ProductClass.GetProduct();
+                    DataIntoComboxClcon();
+                    DataIntocomboBoxIdproduct();
+                    DataIntoComboxPrj();
+                    DataIntoComboxIdTovar();
+                    DataIntoComboxj();
+                    DataIntoComboxIdclient();
+                    DataIntoComboxExecutor();
                 }
                 else
                 {
@@ -701,6 +819,13 @@ namespace fixmaster
                     ProductClass.GetProduct();
                     dataGridView4.DataSource = ProductClass.dtProduct;
                     MessageBox.Show("Успешное удаление", "Удаление завершено", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    DataIntoComboxClcon();
+                    DataIntocomboBoxIdproduct();
+                    DataIntoComboxPrj();
+                    DataIntoComboxIdTovar();
+                    DataIntoComboxj();
+                    DataIntoComboxIdclient();
+                    DataIntoComboxExecutor();
                 }
             }
             catch
@@ -904,8 +1029,6 @@ namespace fixmaster
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             textBoxj.Visible = false;
             comboBoxj.Visible = false;
-            buttonAddvzakaz.Enabled = false;
-            buttonAddvzakaz.Enabled = false;
             comboBox_satus.Enabled = true;
         }
 
@@ -941,29 +1064,40 @@ Object resultpn = DBconnection.msCommand.ExecuteScalar();
 
                 if (Convert.ToInt32(resultcoldo) >= y)
                 {
-
-                    if (OrderClass.addZakaz(Convert.ToString(resultl), Convert.ToString(resultpn), comboBox_satus.Text, comboBoxExecutor.Text, comboBox_id_tovar.Text, Convert.ToInt32(textBox_cena_zakaza.Text), textBox_zakaz_col.Text, comboBoxIdclient.Text, comboBoxIdproduct.Text, resultpd.ToString(), comboBoxClcon.Text))
+                    if (EmplOrderClass.addEmplZakaz(Convert.ToString(resultl), Convert.ToString(resultpn), comboBox_satus.Text, comboBoxExecutor.Text, comboBox_id_tovar.Text, Convert.ToInt32(textBox_cena_zakaza.Text), textBox_zakaz_col.Text, comboBoxIdclient.Text, comboBoxIdproduct.Text, resultpd.ToString(), comboBoxClcon.Text))
                     {
-                        int col_col = Convert.ToInt32(resultcoldo) - y;
-                        string Obnovtov = @"UPDATE parts SET partscol = '" + col_col + "' WHERE idparts = '" + comboBox_id_tovar.Text + "'";
-                        DBconnection.msCommand.CommandText = Obnovtov;
-                        Object resultobnov = DBconnection.msCommand.ExecuteScalar();
-                        MessageBox.Show("Заказ успешно добавлен в базу.", "Заказ внесен", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        OrderClass.GetZakaz();
-                        PartClass.GetPart();
+                        if (OrderClass.addZakaz(Convert.ToString(resultl), Convert.ToString(resultpn), comboBox_satus.Text, comboBoxExecutor.Text, comboBox_id_tovar.Text, Convert.ToInt32(textBox_cena_zakaza.Text), textBox_zakaz_col.Text, comboBoxIdclient.Text, comboBoxIdproduct.Text, resultpd.ToString(), comboBoxClcon.Text))
+                        {
+                            int col_col = Convert.ToInt32(resultcoldo) - y;
+                            string Obnovtov = @"UPDATE parts SET partscol = '" + col_col + "' WHERE idparts = '" + comboBox_id_tovar.Text + "'";
+                            DBconnection.msCommand.CommandText = Obnovtov;
+                            Object resultobnov = DBconnection.msCommand.ExecuteScalar();
+                            MessageBox.Show("Заказ успешно добавлен в базу.", "Заказ внесен", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            OrderClass.GetZakaz();
+                            EmplOrderClass.GetEmplZakaz();
+                            PartClass.GetPart();
+                            DataIntoComboxClcon();
+                            DataIntocomboBoxIdproduct();
+                            DataIntoComboxPrj();
+                            DataIntoComboxIdTovar();
+                            DataIntoComboxj();
+                            DataIntoComboxIdclient();
+                            DataIntoComboxExecutor();
 
 
-                        textBox_cena_zakaza.Text = "";
-                        comboBox_id_tovar.Text = "";
-                        comboBoxIdproduct.Text = "";
-                        comboBoxIdclient.Text = "";
-                        textBox_zakaz_col.Text = "";
-                        comboBox_satus.Text = "";
-                        comboBoxExecutor.Text = "";
-                    }
-                    else
-                    {
-                        MessageBox.Show("Заказ не был добавлен!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            textBox_cena_zakaza.Text = "";
+                            comboBox_id_tovar.Text = "";
+                            comboBoxIdproduct.Text = "";
+                            comboBoxIdclient.Text = "";
+                            textBox_zakaz_col.Text = "";
+                            comboBox_satus.Text = "";
+                            comboBoxExecutor.Text = "";
+                            comboBoxClcon.Text = "";
+                        }
+                        else
+                        {
+                            MessageBox.Show("Заказ не был добавлен!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
 
 
@@ -998,6 +1132,13 @@ Object resultpn = DBconnection.msCommand.ExecuteScalar();
                     PartClass.GetPart();
                     dataGridView3.DataSource = PartClass.dtPart;
                     MessageBox.Show("Успешное удаление", "Удаление завершено", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    DataIntoComboxClcon();
+                    DataIntocomboBoxIdproduct();
+                    DataIntoComboxPrj();
+                    DataIntoComboxIdTovar();
+                    DataIntoComboxj();
+                    DataIntoComboxIdclient();
+                    DataIntoComboxExecutor();
                 }
             }
             catch
@@ -1018,7 +1159,14 @@ Object resultpn = DBconnection.msCommand.ExecuteScalar();
                         textBoxIdProduct.Text = "";
                     textBoxProductname.Text = "";
                     textBoxProductDes.Text = "";
-                    }
+                    DataIntoComboxClcon();
+                    DataIntocomboBoxIdproduct();
+                    DataIntoComboxPrj();
+                    DataIntoComboxIdTovar();
+                    DataIntoComboxj();
+                    DataIntoComboxIdclient();
+                    DataIntoComboxExecutor();
+                }
                     else
                     {
                         MessageBox.Show("Товар не был добавлен!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -1065,6 +1213,13 @@ Object resultpn = DBconnection.msCommand.ExecuteScalar();
                         textBoxPartdes.Text = "";
                         textBoxPartcol.Text = "";
                         textBoxIdpart.Text = "";
+                        DataIntoComboxClcon();
+                        DataIntocomboBoxIdproduct();
+                        DataIntoComboxPrj();
+                        DataIntoComboxIdTovar();
+                        DataIntoComboxj();
+                        DataIntoComboxIdclient();
+                        DataIntoComboxExecutor();
                     }
                     else
                     {
@@ -1107,6 +1262,13 @@ Object resultpn = DBconnection.msCommand.ExecuteScalar();
                 {
                     MessageBox.Show("Данные успешно изменены", "Данные изменены", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     ClientClass.GetClient();
+                    DataIntoComboxClcon();
+                    DataIntocomboBoxIdproduct();
+                    DataIntoComboxPrj();
+                    DataIntoComboxIdTovar();
+                    DataIntoComboxj();
+                    DataIntoComboxIdclient();
+                    DataIntoComboxExecutor();
                 }
                 else
                 {

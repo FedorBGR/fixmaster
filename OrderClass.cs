@@ -146,6 +146,12 @@ namespace fixmaster
             }
         }
 
+        static public void DeleteASZavrsh(string idorder)
+        {
+            msCommand.CommandText = "DELETE FROM fixdb.order WHERE idorder = '" + idorder + "'";
+            msCommand.ExecuteNonQuery();
+        }
+
         static public void searchZakaz(string zakazSearch)
         {
             try
